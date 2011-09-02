@@ -95,6 +95,7 @@
     <Compile Include="vCardSubpropertyCollection.cs" />
     <Compile Include="vCardStandardReader.cs" />
     <Compile Include="vCardValueCollection.cs" />
+    <Compile Include="vCardVersion.cs" />
     <Compile Include="vCardWebsite.cs" />
     <Compile Include="vCardWebsiteCollection.cs" />
     <Compile Include="vCardWebsiteTypes.cs" />

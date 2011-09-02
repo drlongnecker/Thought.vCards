@@ -156,6 +156,9 @@ namespace Thought.vCards
             // See section 2.1.1 of RFC 2426.
 
             properties.Add(new vCardProperty("BEGIN", "VCARD"));
+            BuildProperties_VERSION(
+                properties,
+                card);
 
             BuildProperties_NAME(
                 properties,
@@ -266,6 +269,28 @@ namespace Thought.vCards
             properties.Add(new vCardProperty("END", "VCARD"));
             return properties;
 
+        }
+
+        void BuildProperties_VERSION(vCardPropertyCollection properties, vCard card)
+        {
+            vCardProperty property = new vCardProperty("VERSION", "");
+            switch (card.Version)
+            {
+                case vCardVersion.Version2:
+                    property.Value = "2.0";
+                    break;
+                case vCardVersion.Version3:
+                    property.Value = "3.0";
+                    break;
+                case vCardVersion.Version4:
+                    property.Value = "4.0";
+                    break;
+                default:
+                    property.Value = "2.0";
+                    break;
+            }
+
+            properties.Add(property);
         }
 
         #endregion

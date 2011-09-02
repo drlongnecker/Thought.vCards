@@ -86,6 +86,7 @@
     <Compile Include="vCardPropertyTests.cs" />
     <Compile Include="vCardSourceTests.cs" />
     <Compile Include="vCardStandardReaderTests.cs" />
+    <Compile Include="vCardStandardWriterOutputTests.cs" />
     <Compile Include="vCardStandardWriterTests.cs" />
     <Compile Include="vCardSubpropertyCollectionTests.cs" />
     <Compile Include="vCardSubpropertyTests.cs" />
