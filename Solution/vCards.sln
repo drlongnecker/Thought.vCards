@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thought.vCards", "Thought.vCards\Thought.vCards.csproj", "{A53D3CEB-F7AF-41AB-AA04-4D3CF684BBAF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thought.vCards.UnitTests", "Thought.vCards.UnitTests\Thought.vCards.UnitTests.csproj", "{D7A4725B-CB7B-4F10-8DD1-DE2E4AECA498}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A53D3CEB-F7AF-41AB-AA04-4D3CF684BBAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A53D3CEB-F7AF-41AB-AA04-4D3CF684BBAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A53D3CEB-F7AF-41AB-AA04-4D3CF684BBAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A53D3CEB-F7AF-41AB-AA04-4D3CF684BBAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7A4725B-CB7B-4F10-8DD1-DE2E4AECA498}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7A4725B-CB7B-4F10-8DD1-DE2E4AECA498}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7A4725B-CB7B-4F10-8DD1-DE2E4AECA498}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7A4725B-CB7B-4F10-8DD1-DE2E4AECA498}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,9 @@
+<PartCoverSettings>
+  <Target>.\Solution\packages\NUnit.2.5.10.11092\tools\nunit-console.exe</Target>
+  <TargetWorkDir></TargetWorkDir>
+  <TargetArgs>.\build\Thought.vCards.UnitTests.dll</TargetArgs>
+  <DisableFlattenDomains>True</DisableFlattenDomains>
+  <Rule>+[Thought.vCards.*]*</Rule>
+  <Rule>-[Thought.vCards.UnitTests]*</Rule>
+  <Rule>-[*]*__*</Rule>
+</PartCoverSettings>
