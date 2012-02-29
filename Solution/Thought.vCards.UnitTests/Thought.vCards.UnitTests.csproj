@@ -102,6 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ReadMe.txt" />
+    <Content Include="Resources\UnicodeNameSample.txt" />
     <None Include="packages.config" />
     <None Include="Resources\Outlook2007.txt" />
     <None Include="Resources\RfcAuthors.txt" />

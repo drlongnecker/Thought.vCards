@@ -428,6 +428,19 @@ namespace Tests.Samples
 
         #endregion
 
+        #region [ ParseOutlookSimple ]
+
+        [Test]
+        public void ParseUnicodeSimple()
+        {
+            vCard card = new vCard(
+               new StreamReader(new MemoryStream(SampleCards.UnicodeNameSample)));
+
+            Assert.NotNull(card);
+            Assert.AreEqual("³ÂÀö¾ý", card.GivenName);
+        }
+
+        #endregion
 
     }
 }
