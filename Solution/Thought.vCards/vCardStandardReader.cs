@@ -1,4 +1,3 @@
-
 /* =======================================================================
  * vCard Library for .NET
  * Copyright (c) 2007-2009 David Pinch; http://wwww.thoughtproject.com
@@ -61,7 +60,7 @@ namespace Thought.vCards
         ///     The state of the quoted-printable decoder (private).
         /// </summary>
         /// <remarks>
-        ///     The <see cref="DecodeQuotedPrintable"/> function
+        ///     The <see cref="DecodeQuotedPrintable(string)"/> function
         ///     is a utility function that parses a string that
         ///     has been encoded with the QUOTED-PRINTABLE format.
         ///     The function is implemented as a state-pased parser
@@ -80,10 +79,9 @@ namespace Thought.vCards
         /// <summary>
         ///     Initializes a new instance of the <see cref="vCardStandardReader"/>.
         /// </summary>
-        public vCardStandardReader() : base()
-        {
-        }
-
+        public vCardStandardReader()
+            : base()
+        { }
 
         #region [ DecodeBase64(string) ]
 
@@ -368,6 +366,15 @@ namespace Thought.vCards
         #endregion
 
         #region [ DecodeQuotedPrintable ]
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string DecodeQuotedPrintable(string value)
+        {
+            return DecodeQuotedPrintable(value, Encoding.Default);
+        }
 
         /// <summary>
         ///     Decodes a string that has been encoded in QUOTED-PRINTABLE format.
@@ -375,18 +382,22 @@ namespace Thought.vCards
         /// <param name="value">
         ///     A string that has been encoded in QUOTED-PRINTABLE.
         /// </param>
+        /// <param name="encoding">
+        ///     charset encoding 
+        /// </param>
         /// <returns>
         ///     The decoded string.
         /// </returns>
-        public static string DecodeQuotedPrintable(string value)
+        public static string DecodeQuotedPrintable(string value, Encoding encoding)
         {
 
             if (string.IsNullOrEmpty(value))
                 return value;
 
-            StringBuilder builder = new StringBuilder();
             char firstHexChar = '\x0';
             QuotedPrintableState state = QuotedPrintableState.None;
+
+            System.Collections.Generic.List<Char> charList = new System.Collections.Generic.List<Char>();
 
             foreach (char c in value)
             {
@@ -409,7 +420,7 @@ namespace Thought.vCards
                         }
                         else
                         {
-                            builder.Append(c);
+                            charList.Add(c);
                         }
                         break;
 
@@ -451,7 +462,7 @@ namespace Thought.vCards
                             // character and assume this equal sign marks
                             // the beginning of a sequence.
 
-                            builder.Append('=');
+                            charList.Add('=');
                             state = QuotedPrintableState.ExpectingHexChar1;
 
                         }
@@ -463,8 +474,9 @@ namespace Thought.vCards
                             // not a hex digit, a carriage return, or an
                             // equal sign.  It is bad data.
 
-                            builder.Append('=');
-                            builder.Append(c);
+                            charList.Add('=');
+                            charList.Add(c);
+
                             state = QuotedPrintableState.None;
                         }
                         break;
@@ -487,7 +499,8 @@ namespace Thought.vCards
                                 (DecodeHexadecimal(firstHexChar) << 4) +
                                 DecodeHexadecimal(c);
 
-                            builder.Append((char)charValue);
+                            charList.Add((char)charValue);
+
                             state = QuotedPrintableState.None;
 
                         }
@@ -500,9 +513,9 @@ namespace Thought.vCards
                             // the partial sequence is dumped to the output
                             // and skipped.
 
-                            builder.Append('=');
-                            builder.Append(firstHexChar);
-                            builder.Append(c);
+                            charList.Add('=');
+                            charList.Add(firstHexChar);
+                            charList.Add(c);
                             state = QuotedPrintableState.None;
 
                         }
@@ -531,7 +544,7 @@ namespace Thought.vCards
                         }
                         else
                         {
-                            builder.Append(c);
+                            charList.Add(c);
                             state = QuotedPrintableState.None;
                         }
 
@@ -547,21 +560,29 @@ namespace Thought.vCards
             switch (state)
             {
                 case QuotedPrintableState.ExpectingHexChar1:
-                    builder.Append('=');
+                    charList.Add('=');
                     break;
 
                 case QuotedPrintableState.ExpectingHexChar2:
-                    builder.Append('=');
-                    builder.Append(firstHexChar);
+                    charList.Add('=');
+                    charList.Add(firstHexChar);
                     break;
 
                 case QuotedPrintableState.ExpectingLineFeed:
-                    builder.Append('=');
-                    builder.Append('\r');
+                    charList.Add('=');
+                    charList.Add('\r');
                     break;
             }
 
-            return builder.ToString();
+            var by = new byte[charList.Count];
+            for (int i = 0; i < charList.Count; i++)
+            {
+                by[i] = Convert.ToByte(charList[i]);
+            }
+
+            var ret = encoding.GetString(by);
+
+            return ret;
 
         }
 
@@ -2077,6 +2098,14 @@ namespace Thought.vCards
                     property.Subproperties.GetValue("ENCODING",
                         new string[] { "B", "BASE64", "QUOTED-PRINTABLE" });
 
+                var hasCharset = property.Subproperties.Contains("CHARSET");
+                var charsetEncoding = Encoding.Default;
+                if (hasCharset)
+                {
+                    var charsetEncodingName = property.Subproperties.GetValue("CHARSET");
+                    charsetEncoding = GetCharsetEncoding(charsetEncodingName);
+                }
+
                 // Convert the encoding name into its corresponding
                 // vCardEncoding enumeration value.
 
@@ -2135,7 +2164,7 @@ namespace Thought.vCards
                         break;
 
                     case vCardEncoding.QuotedPrintable:
-                        property.Value = DecodeQuotedPrintable(rawValue);
+                        property.Value = DecodeQuotedPrintable(rawValue, charsetEncoding);
                         break;
 
                     default:
@@ -2149,6 +2178,19 @@ namespace Thought.vCards
 
         }
 
+
+        private Encoding GetCharsetEncoding(string encodingName)
+        {
+            switch (encodingName)
+            {
+                case "UTF-8":
+                    return Encoding.UTF8;
+                case "ASCII":
+                    return Encoding.ASCII;
+                default:
+                    return Encoding.GetEncoding(encodingName);
+            }
+        }
         #endregion
 
     }
