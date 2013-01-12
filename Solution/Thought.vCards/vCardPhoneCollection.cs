@@ -16,6 +16,7 @@ namespace Thought.vCards
     /// </summary>
     /// <seealso cref="vCardPhone"/>
     /// <seealso cref="vCardPhoneTypes"/>
+    [Serializable]
     public class vCardPhoneCollection : Collection<vCardPhone>
     {
 

@@ -21,6 +21,7 @@ namespace Thought.vCards
     /// </remarks>
     /// <seealso cref="vCardEmailAddressCollection"/>
     /// <seealso cref="vCardEmailAddressType"/>
+    [Serializable]
     public class vCardEmailAddress
     {
 
