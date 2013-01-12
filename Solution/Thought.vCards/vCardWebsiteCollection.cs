@@ -16,6 +16,7 @@ namespace Thought.vCards
     /// </summary>
     /// <seealso cref="vCardWebsite"/>
     /// <seealso cref="vCardWebsiteTypes"/>
+    [Serializable]
     public class vCardWebsiteCollection : Collection<vCardWebsite>
     {
 

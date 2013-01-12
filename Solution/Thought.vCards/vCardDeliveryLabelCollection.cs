@@ -14,6 +14,7 @@ namespace Thought.vCards
     /// <summary>
     ///     A collection of <see cref="vCardDeliveryLabel"/> objects.
     /// </summary>
+    [Serializable]
     public class vCardDeliveryLabelCollection : Collection<vCardDeliveryLabel>
     {
     }
