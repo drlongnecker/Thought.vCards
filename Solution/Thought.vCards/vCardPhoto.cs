@@ -118,6 +118,8 @@ namespace Thought.vCards
 
             // Extract the bytes of the stream to the array.
 
+            data = new byte[bytes.Length];
+
             bytes.Seek(0, SeekOrigin.Begin);
             bytes.Read(data, 0, (int)bytes.Length);
 
