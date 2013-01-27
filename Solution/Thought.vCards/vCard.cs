@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Specialized;
 using System.IO;
+using System.Reflection;
 using System.Text;
 
 namespace Thought.vCards
@@ -35,6 +36,7 @@ namespace Thought.vCards
     ///     </para>
     /// </remarks>
     [Serializable]
+    [Obfuscation(Exclude = true)]
     public class vCard
     {
 
