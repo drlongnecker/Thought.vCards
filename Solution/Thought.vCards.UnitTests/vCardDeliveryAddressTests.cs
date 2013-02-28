@@ -1,17 +1,18 @@
 
 using System;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Thought.vCards;
+using Assert = NUnit.Framework.Assert;
 
 namespace Tests
 {
-    [TestFixture]
-    public class vCardDeliveryAddressTests
+    [TestClass]
+    public sealed class vCardDeliveryAddressTests : IDisposable
     {
 
         #region [ Constructor ]
 
-        [Test]
+        [TestMethod]
         public void Constructor()
         {
 
@@ -45,7 +46,7 @@ namespace Tests
 
         #region [ EmptyString_City ]
 
-        [Test]
+        [TestMethod]
         public void EmptyString_City()
         {
 
@@ -67,7 +68,7 @@ namespace Tests
 
         #region [ EmptyString_Country ]
 
-        [Test]
+        [TestMethod]
         public void EmptyString_Country()
         {
 
@@ -89,7 +90,7 @@ namespace Tests
 
         #region [ EmptyString_PostalCode ]
 
-        [Test]
+        [TestMethod]
         public void EmptyString_PostalCode()
         {
 
@@ -111,7 +112,7 @@ namespace Tests
 
         #region [ EmptyString_Region ]
 
-        [Test]
+        [TestMethod]
         public void EmptyString_Region()
         {
 
@@ -133,7 +134,7 @@ namespace Tests
 
         #region [ EmptyString_Street ]
 
-        [Test]
+        [TestMethod]
         public void EmptyString_Street()
         {
 
@@ -155,7 +156,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_AddressType ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_AddressType()
         {
 
@@ -173,7 +174,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_City ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_City()
         {
 
@@ -190,7 +191,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_Country ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_Country()
         {
 
@@ -207,7 +208,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_IsDomestic ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_IsDomestic()
         {
 
@@ -227,7 +228,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_IsHome ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_IsHome()
         {
 
@@ -247,7 +248,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_IsInternational ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_IsInternational()
         {
 
@@ -267,7 +268,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_IsParcel ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_IsParcel()
         {
 
@@ -287,7 +288,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_IsPostal ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_IsPostal()
         {
 
@@ -307,7 +308,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_IsWork ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_IsWork()
         {
 
@@ -327,7 +328,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_PostalCode ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_PostalCode()
         {
 
@@ -344,7 +345,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_Region ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_Region()
         {
 
@@ -361,7 +362,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_Street ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_Street()
         {
 
@@ -376,5 +377,7 @@ namespace Tests
 
         #endregion
 
+        public void Dispose() { //driver.Dispose(); 
+        }
     }
 }

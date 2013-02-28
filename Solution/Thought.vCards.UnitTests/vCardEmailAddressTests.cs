@@ -1,13 +1,14 @@
 
 using System;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Thought.vCards;
+using Assert = NUnit.Framework.Assert;
 
 namespace Tests
 {
 
-    [TestFixture]
-    public class vCardEmailAddressTests
+    [TestClass]
+    public sealed class vCardEmailAddressTests : IDisposable
     {
 
         private const string TestEmailAddress = "dave@thoughtproject.com";
@@ -17,7 +18,7 @@ namespace Tests
 
         #region [ Constructor ]
 
-        [Test]
+        [TestMethod]
         public void Constructor()
         {
 
@@ -33,7 +34,7 @@ namespace Tests
 
         #region [ Constructor_String ]
 
-        [Test]
+        [TestMethod]
         public void Constructor_String()
         {
 
@@ -56,7 +57,7 @@ namespace Tests
 
         #region [ Constructor_String_EmailType ]
 
-        [Test]
+        [TestMethod]
         public void Constructor_String_EmailType()
         {
 
@@ -90,7 +91,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_Address ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_Address()
         {
 
@@ -110,7 +111,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_EmailType ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_EmailType()
         {
 
@@ -127,7 +128,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_IsPreferred ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_IsPreferred()
         {
 
@@ -144,5 +145,7 @@ namespace Tests
 
         #endregion
 
+        public void Dispose() {// driver.Dispose(); 
+        }
     }
 }
