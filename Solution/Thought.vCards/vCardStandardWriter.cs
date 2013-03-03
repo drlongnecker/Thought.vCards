@@ -22,7 +22,7 @@ namespace Thought.vCards
         private bool embedLocalImages;
         private vCardStandardWriterOptions options;
         private string productId;
-
+        private const string TYPE = "TYPE";
 
         /// <summary>
         ///     The characters that are escaped per the original
@@ -156,7 +156,7 @@ namespace Thought.vCards
             // See section 2.1.1 of RFC 2426.
 
             properties.Add(new vCardProperty("BEGIN", "VCARD"));
-
+            properties.Add(new vCardProperty("VERSION", "3.0"));
             BuildProperties_NAME(
                 properties,
                 card);
@@ -467,14 +467,14 @@ namespace Thought.vCards
 
                 if (emailAddress.IsPreferred)
                 {
-                    property.Subproperties.Add("PREF");
+                    property.Subproperties.Add(TYPE, "PREF");
                 }
 
                 switch (emailAddress.EmailType)
                 {
 
                     case vCardEmailAddressType.Internet:
-                        property.Subproperties.Add("INTERNET");
+                        property.Subproperties.Add(TYPE, "INTERNET");
                         break;
 
                     case vCardEmailAddressType.AOL:
@@ -486,7 +486,7 @@ namespace Thought.vCards
                         break;
 
                     case vCardEmailAddressType.AttMail:
-                        property.Subproperties.Add("ATTMail");
+                        property.Subproperties.Add(TYPE,"ATTMail");
                         break;
 
                     case vCardEmailAddressType.CompuServe:
@@ -522,9 +522,26 @@ namespace Thought.vCards
                         break;
 
                     default:
-                        property.Subproperties.Add("INTERNET");
+                        property.Subproperties.Add(TYPE, "INTERNET");
                         break;
 
+                }
+
+                switch(emailAddress.ItemType)
+                {
+                    case ItemType.UNSPECIFIED:
+                        //do nothing
+                        break;
+                    case ItemType.HOME:
+                        property.Subproperties.Add(TYPE, ItemType.HOME.ToString());
+                        break;
+                    case ItemType.WORK:
+                        property.Subproperties.Add(TYPE, ItemType.WORK.ToString());
+                        break;
+
+                    default:
+
+                        break;
                 }
 
                 properties.Add(property);
@@ -1070,7 +1087,7 @@ namespace Thought.vCards
                 vCardProperty property = new vCardProperty();
 
                 property.Name = "TEL";
-
+                
                 if (phone.IsBBS)
                     property.Subproperties.Add("BBS");
 
@@ -1109,6 +1126,15 @@ namespace Thought.vCards
 
                 if (phone.IsWork)
                     property.Subproperties.Add("WORK");
+
+                if (phone.IsiPhone)
+                {
+                    property.Subproperties.Add("IPHONE");
+                }
+                if (phone.IsMain)
+                {
+                    property.Subproperties.Add("MAIN");
+                }
 
                 property.Value = phone.FullNumber;
                 properties.Add(property);

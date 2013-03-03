@@ -8,6 +8,7 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Thought.vCards
 {
@@ -135,6 +136,33 @@ namespace Thought.vCards
         }
 
         #endregion
+
+        /// <summary>
+        /// returns the parsed ItemType for subProperty values like HOME and WORK. If no match is found, this method returns null
+        /// </summary>
+        /// <param name="keyword"></param>
+        /// <returns></returns>
+        public static ItemType? DecodeItemType(string keyword)
+        {
+               if (string.IsNullOrEmpty(keyword))
+                return null;
+
+            switch (keyword.ToUpperInvariant())
+            {
+                case "HOME":
+                    return ItemType.HOME;
+        
+                case "WORK":
+                    return ItemType.WORK;
+     
+                default:
+                    return null;
+            }
+
+
+
+
+        }
 
         #region [ DecodeEmailAddressType ]
 
@@ -784,6 +812,10 @@ namespace Thought.vCards
 
                 case "WORK":
                     return vCardPhoneTypes.Work;
+                case "IPHONE":
+                    return vCardPhoneTypes.IPhone;
+                case "MAIN":
+                    return vCardPhoneTypes.Main;
 
                 default:
                     return vCardPhoneTypes.Default;
@@ -981,7 +1013,18 @@ namespace Thought.vCards
             if (string.IsNullOrEmpty(property.Name))
                 return;
 
-            switch (property.Name.ToUpperInvariant())
+            string propNameToProcess = property.Name.ToUpperInvariant();
+
+            var match = Regex.Match(propNameToProcess, @"^ITEM\d+\.");
+
+            if (match != null && match.Success && match.Value != null)
+            {
+                propNameToProcess = propNameToProcess.Replace(match.Value, string.Empty);
+            }
+
+             
+
+            switch (propNameToProcess)
             {
 
                 case "ADR":
@@ -1351,11 +1394,23 @@ namespace Thought.vCards
                             }
                             else
                             {
-                                vCardEmailAddressType? typeType =
-                                    DecodeEmailAddressType(typeValue);
+                                vCardEmailAddressType? typeType = DecodeEmailAddressType(typeValue);
 
                                 if (typeType.HasValue)
+                                {
                                     email.EmailType = typeType.Value;
+                                }
+                                else
+                                {
+
+                                    ItemType? itemType = DecodeItemType(typeValue);
+
+                                    if (itemType.HasValue)
+                                    {
+                                        email.ItemType = itemType.Value;
+                                    }
+
+                                }
                             }
 
                         }
@@ -1671,6 +1726,11 @@ namespace Thought.vCards
 
             card.Organization = property.Value.ToString();
 
+            if (card.Organization != null && card.Organization.EndsWith(";"))
+            {
+               card.Organization = card.Organization.TrimEnd(Convert.ToChar(";"));
+            }
+
         }
 
         #endregion
@@ -1689,7 +1749,8 @@ namespace Thought.vCards
 
             string valueType = property.Subproperties.GetValue("VALUE");
 
-            if (string.Compare(valueType, "URI", StringComparison.OrdinalIgnoreCase) == 0)
+            //URI is the standard, but I've seen examples online of URL
+            if ((string.Compare(valueType, "URI", StringComparison.OrdinalIgnoreCase) == 0) || (string.Compare(valueType, "URL", StringComparison.OrdinalIgnoreCase) == 0))
             {
 
                 // This image has been defined as a URI/URL link, 
