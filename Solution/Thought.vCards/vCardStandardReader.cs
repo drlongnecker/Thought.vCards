@@ -894,6 +894,9 @@ namespace Thought.vCards
                 case "WORK":
                     return vCardDeliveryAddressTypes.Work;
 
+                case "PREF":
+                    return vCardDeliveryAddressTypes.Preferred;
+
                 default:
                     return vCardDeliveryAddressTypes.Default;
             }
@@ -1055,6 +1058,9 @@ namespace Thought.vCards
                     ReadInto_GEO(card, property);
                     break;
 
+                case "IMPP":
+                    ReadInto_IMPP(card, property);
+                    break;
                 case "KEY":
                     ReadInto_KEY(card, property);
                     break;
@@ -1489,6 +1495,89 @@ namespace Thought.vCards
         }
 
         #endregion
+
+        private void ReadInto_IMPP(vCard card, vCardProperty property)
+        {
+
+            vCardIMPP im = new vCardIMPP();
+
+            // The full telephone number is stored as the 
+            // value of the property.  Currently no formatted
+            // rules are applied since the vCard specification
+            // is somewhat confusing on this matter.
+
+            im.Handle = property.ToString();
+            if (string.IsNullOrEmpty(im.Handle))
+                return;
+
+            foreach (vCardSubproperty subproperty in property.Subproperties)
+            {
+
+                switch (subproperty.Name.ToUpperInvariant())
+                {
+
+                    case "PREF":
+
+                        // The PREF subproperty indicates the email
+                        // address is the preferred email address to
+                        // use when contacting the person.
+
+                        im.IsPreferred = true;
+                        break;
+
+                    case "TYPE":
+                    case "X-SERVICE-TYPE":
+                        // The TYPE subproperty is new in vCard 3.0.
+                        // It identifies the type and can also indicate
+                        // the PREF attribute.
+
+                        string[] typeValues =
+                            subproperty.Value.Split(new char[] { ',' });
+
+                        foreach (string typeValue in typeValues)
+                        {
+                            if (string.Compare("PREF", typeValue, StringComparison.OrdinalIgnoreCase) == 0)
+                            {
+                                im.IsPreferred = true;
+                            }
+                            else
+                            {
+
+                                IMServiceType? imServiceType= IMTypeUtils.GetIMServiceType(typeValue);
+
+                                if (imServiceType.HasValue)
+                                {
+                                    im.ServiceType = imServiceType.Value;
+
+                                    //fix handle
+                                    im.Handle = IMTypeUtils.StripHandlePrefix(im.ServiceType, im.Handle);
+
+                                }
+                                else
+                                {
+                                    ItemType? itemType = DecodeItemType(typeValue);
+
+                                    if (itemType.HasValue)
+                                    {
+                                        im.ItemType = itemType.Value;
+                                    }
+
+                                }
+  
+                            }
+
+                        }
+                        break;
+
+                }
+
+            }
+
+            card.IMs.Add(im);
+             
+        }
+
+
 
         #region [ ReadInto_KEY ]
 

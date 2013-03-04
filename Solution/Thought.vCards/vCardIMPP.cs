@@ -1,0 +1,266 @@
+
+/* =======================================================================
+ * vCard Library for .NET
+ * Copyright (c) 2007-2009 David Pinch; http://wwww.thoughtproject.com
+ * See LICENSE.TXT for licensing information.
+ * ======================================================================= */
+
+using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+
+namespace Thought.vCards
+{
+
+    /// <summary>
+    ///    IM info  <see cref="vCard"/>.
+    /// </summary>
+    [Serializable]
+    public class vCardIMPP
+    {
+
+        private string handle;
+        private ItemType itemType;
+        private IMServiceType serviceType;
+
+        /// <summary>
+        ///     Creates a new <see cref="vCardIMPP"/> object.
+        /// </summary>
+        public vCardIMPP()
+        {
+            this.serviceType = IMServiceType.Unspecified;
+        }
+
+
+        /// <summary>
+        ///     Creates a new <see cref="vCardIMPP"/> object with the specified handle.
+        /// </summary>
+        /// <param name="handle">the im handle</param>
+        /// <param name="serviceType">skype, aim, etc</param>
+        /// <param name="itemType">the type of IM, defaults to Unspecified</param>
+        public vCardIMPP(string handle, IMServiceType serviceType, ItemType itemType = ItemType.UNSPECIFIED)
+        {
+            this.handle = handle;
+            this.itemType = itemType;
+            this.serviceType = serviceType;
+        }
+
+
+
+
+
+        /// <summary>
+        ///     The full IM handle.
+        /// </summary>
+        public string Handle
+        {
+            get
+            {
+                return this.handle ?? string.Empty;
+            }
+            set
+            {
+                this.handle = value;
+            }
+        }
+
+        /// <summary>
+        /// the IMServiceType AIM, googletalk, etc
+        /// </summary>
+        public IMServiceType ServiceType
+        {
+            get { return serviceType; }
+            set { serviceType = value; }
+        }
+
+
+        /// <summary>
+        ///     The IM ItemType. home work, unspecified
+        /// </summary>
+        public ItemType ItemType
+        {
+            get
+            {
+                return this.itemType;
+            }
+            set
+            {
+                this.itemType = value;
+            }
+        }
+
+        /// <summary>
+        /// is PREF set on this IMPP item
+        /// </summary>
+        public bool IsPreferred { get; set; }
+    }
+
+    /// <summary>
+    /// simple enum for various types of IM services
+    /// </summary>
+    public enum IMServiceType
+    {
+        /// <summary>
+        /// unspecified
+        /// </summary>
+        Unspecified = 0,
+        /// <summary>
+        /// for Skype
+        /// </summary>
+        Skype,
+        /// <summary>
+        /// aim
+        /// </summary>
+        AIM,
+        /// <summary>
+        /// gtalk
+        /// </summary>
+        GoogleTalk,
+        /// <summary>
+        /// msn
+        /// </summary>
+        MSN,
+        /// <summary>
+        /// yahoo
+        /// </summary>
+        Yahoo,
+
+        /// <summary>
+        /// facebook
+        /// </summary>
+        Facebook,
+        /// <summary>
+        /// jabber
+        /// </summary>
+        Jabber,
+        /// <summary>
+        /// icq
+        /// </summary>
+        ICQ,
+        /// <summary>
+        /// qq
+        /// </summary>
+        QQ
+         
+
+
+    }
+
+    /// <summary>
+    /// simple class to generate the strings for given IMServiceType
+    /// </summary>
+    public static class IMTypeUtils
+    {
+
+        private static Dictionary<IMServiceType, string> lookup;
+
+          static IMTypeUtils()
+        {
+            lookup = new Dictionary<IMServiceType, string>();
+            lookup.Add(IMServiceType.AIM, "AIM:aim");
+            lookup.Add(IMServiceType.Facebook, "Facebook:xmpp");
+            lookup.Add(IMServiceType.GoogleTalk, "GoogleTalk:xmpp");
+            lookup.Add(IMServiceType.ICQ, "ICQ:icq");
+            lookup.Add(IMServiceType.Jabber, "Jabber:xmpp");
+            lookup.Add(IMServiceType.MSN, "MSN:msnim");
+            lookup.Add(IMServiceType.QQ, "QQ:xmpp");
+            lookup.Add(IMServiceType.Skype, "Skype:skype");
+            lookup.Add(IMServiceType.Yahoo, "Yahoo:ymsgr");
+
+        }
+
+        /// <summary>
+        /// will return the property meta info to be written for a given IM serviceType
+        /// </summary>
+        /// 
+        /// <param name="serviceType">IMServiceType to get the subproperty info for </param>
+        /// <returns>for example GoogleTalk:xmpp, or for yahoo Yahoo:ymsgr</returns>
+        public static string GetIMTypeProperty(IMServiceType serviceType)
+        {
+
+            if (lookup.ContainsKey(serviceType))
+            {
+                return lookup[serviceType];
+            }
+
+            return null;
+
+        }
+
+        /// <summary>
+        /// the handle is coming back with the msnim:handle, so we want to return the pure handle minus the msnim:
+        /// </summary>
+        /// <param name="serviceType"></param>
+        /// <param name="handle"></param>
+        /// <returns></returns>
+        public static string StripHandlePrefix(IMServiceType serviceType, string handle)
+        {
+
+            string property = GetIMTypeProperty(serviceType);
+
+
+            if (property != null)
+            {
+                string prefix = property.Substring(property.IndexOf(":") + 1);
+                int prefixLength = prefix.Length + 1;
+                if (handle.StartsWith(prefix))
+                {
+                    handle = handle.Substring(handle.IndexOf(prefix + ":") + prefixLength);
+                }
+
+            }
+
+            return handle;
+
+
+        }
+
+        /// <summary>
+        /// for parsing the 
+        /// </summary>
+        /// <param name="imType"></param>
+        /// <returns></returns>
+        public static IMServiceType? GetIMServiceType(string imType)
+        {
+            IMServiceType? serviceType = null;
+
+            switch (imType.ToLowerInvariant())
+            {
+                case "aim":
+                    serviceType = IMServiceType.AIM;
+                    break;
+                case "faceook":
+                    serviceType = IMServiceType.Facebook;
+                    break;
+                case "googletalk":
+                    serviceType = IMServiceType.GoogleTalk;
+                    break;
+                case "icq":
+                    serviceType = IMServiceType.ICQ;
+                    break;
+                case "jabber":
+                    serviceType = IMServiceType.Jabber;
+                    break;
+                case "msn":
+                    serviceType = IMServiceType.MSN;
+                    break;
+                case "qq":
+                    serviceType = IMServiceType.QQ;
+                    break;
+                case "skype":
+                    serviceType = IMServiceType.Skype;
+                    break;
+                case "yahoo":
+                    serviceType = IMServiceType.Yahoo;
+                    break;
+            }
+
+
+            return serviceType;
+
+        }
+
+
+    }
+
+}

@@ -50,7 +50,12 @@ namespace Thought.vCards
         /// <summary>
         ///     A work delivery address.
         /// </summary>
-        Work
+        Work,
+        
+        /// <summary>
+        /// you can mark an address as Preferred type="pref" 
+        /// </summary>
+        Preferred
     }
 
 }

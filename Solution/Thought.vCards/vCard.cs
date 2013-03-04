@@ -72,6 +72,7 @@ namespace Thought.vCards
         private vCardPhotoCollection photos;
         private vCardSourceCollection sources;
         private vCardWebsiteCollection websites;
+        private vCardIMPPCollection ims;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="vCard"/> class.
@@ -111,6 +112,7 @@ namespace Thought.vCards
             this.photos = new vCardPhotoCollection();
             this.sources = new vCardSourceCollection();
             this.websites = new vCardWebsiteCollection();
+            this.ims = new vCardIMPPCollection();
         }
 
 
@@ -739,6 +741,14 @@ namespace Thought.vCards
             {
                 return this.websites;
             }
+        }
+
+        /// <summary>
+        /// IMPP Collection 
+        /// </summary>
+        public vCardIMPPCollection IMs
+        {
+            get { return this.ims; }
         }
 
     }

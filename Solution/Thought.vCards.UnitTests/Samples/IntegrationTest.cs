@@ -67,15 +67,15 @@ namespace Tests.Samples
 
             vCard card = new vCard();
 
-            card.EmailAddresses.Add(new vCardEmailAddress() { Address = "john@email.com", EmailType = vCardEmailAddressType.Internet, IsPreferred = true , ItemType = ItemType.WORK});
-   
+            card.EmailAddresses.Add(new vCardEmailAddress() { Address = "john@email.com", EmailType = vCardEmailAddressType.Internet, IsPreferred = true, ItemType = ItemType.WORK });
+
 
             card.UniqueId = Guid.NewGuid().ToString("N");
 
             string text = card.ToString();
 
             vCardStandardWriter writer = new vCardStandardWriter();
-            
+
             using (StringWriter sw = new StringWriter())
             {
 
@@ -92,10 +92,10 @@ namespace Tests.Samples
 
             vCardStandardReader reader = new vCardStandardReader();
 
-            using(StringReader sr = new StringReader(text))
+            using (StringReader sr = new StringReader(text))
             {
 
-                vCard cardFromReader =   reader.Read(sr);
+                vCard cardFromReader = reader.Read(sr);
 
                 Assert.AreEqual(1, cardFromReader.EmailAddresses.Count);
 
@@ -195,7 +195,7 @@ END:VCARD";
                 CheckEmail(c.EmailAddresses, "h@h.com", ItemType.HOME, vCardEmailAddressType.Internet, false);
                 CheckEmail(c.EmailAddresses, "y@y.com", ItemType.HOME, vCardEmailAddressType.Internet, false);
 
- 
+
 
 
                 Assert.AreEqual("Sales Guy", c.Title);
@@ -203,25 +203,68 @@ END:VCARD";
                 Assert.AreEqual("Nic", c.GivenName);
                 Assert.AreEqual("iOS", c.FamilyName);
 
+    
 
                 Assert.AreEqual(8, c.Phones.Count);
 
-                CheckPhone(c.Phones, "(202) 333-4555", vCardPhoneTypes.Preferred | vCardPhoneTypes.Cellular | vCardPhoneTypes.Voice , true);
-                CheckPhone(c.Phones, "(202) 333-4444", vCardPhoneTypes.IPhone| vCardPhoneTypes.Cellular | vCardPhoneTypes.Voice, false);
+                CheckPhone(c.Phones, "(202) 333-4555", vCardPhoneTypes.Preferred | vCardPhoneTypes.Cellular | vCardPhoneTypes.Voice, true);
+                CheckPhone(c.Phones, "(202) 333-4444", vCardPhoneTypes.IPhone | vCardPhoneTypes.Cellular | vCardPhoneTypes.Voice, false);
                 CheckPhone(c.Phones, "(333) 222-2222", vCardPhoneTypes.Home | vCardPhoneTypes.Voice, false);
-                CheckPhone(c.Phones, "(809) 555-6666 x444",  vCardPhoneTypes.Work | vCardPhoneTypes.Voice, false);
-                CheckPhone(c.Phones, "(609) 888-7777", vCardPhoneTypes.Main , false);
-                CheckPhone(c.Phones, "(555) 444-4443",  vCardPhoneTypes.Home | vCardPhoneTypes.Fax, false);
-                CheckPhone(c.Phones, "33322222222",  vCardPhoneTypes.Work | vCardPhoneTypes.Fax, false);
-                CheckPhone(c.Phones, "(999) 777-7999", vCardPhoneTypes.Default , false);
+                CheckPhone(c.Phones, "(809) 555-6666 x444", vCardPhoneTypes.Work | vCardPhoneTypes.Voice, false);
+                CheckPhone(c.Phones, "(609) 888-7777", vCardPhoneTypes.Main, false);
+                CheckPhone(c.Phones, "(555) 444-4443", vCardPhoneTypes.Home | vCardPhoneTypes.Fax, false);
+                CheckPhone(c.Phones, "33322222222", vCardPhoneTypes.Work | vCardPhoneTypes.Fax, false);
+                CheckPhone(c.Phones, "(999) 777-7999", vCardPhoneTypes.Default, false);
 
 
                 //phones and emails are good
                 //need to check the physical address parsing and on down
 
+                CheckAddress(c.DeliveryAddresses, "8230 Boone Blvd", "Vinna", "VA", "22182", "United States", vCardDeliveryAddressTypes.Home | vCardDeliveryAddressTypes.Preferred, true);
 
+                CheckIM(c.IMs, "msnname", IMServiceType.MSN, ItemType.UNSPECIFIED, false);
 
             }
+
+
+
+        }
+
+        private void CheckIM(vCardIMPPCollection ims, string handle, IMServiceType serviceType, ItemType itemType, bool isPreferred)
+        {
+
+            if (ims == null || ims.Count == 0)
+            {
+                Assert.Fail("ims null or empty");
+            }
+
+            var im = ims.FirstOrDefault(x => x.Handle == handle && x.ServiceType == serviceType);
+
+            Assert.IsNotNull(im);
+            Assert.AreEqual(itemType,im.ItemType);
+            Assert.AreEqual(isPreferred, im.IsPreferred);
+
+
+        }
+
+        private void CheckAddress(vCardDeliveryAddressCollection addresses, string street, string city, string state, string zip, string country, vCardDeliveryAddressTypes addressTypes, bool isPreferred)
+        {
+            //there is no street address 2 it is just separated with \n
+
+            if (addresses == null || addresses.Count == 0)
+            {
+                Assert.Fail("addresses null or empty");
+            }
+
+            var a = addresses.FirstOrDefault(x => x.Street == street && x.City == city);
+
+            Assert.IsNotNull(a);
+
+            Assert.AreEqual(state, a.Region);
+            Assert.AreEqual(zip, a.PostalCode);
+            Assert.AreEqual(country, a.Country);
+            Assert.AreEqual(addressTypes, a.AddressType);
+            Assert.AreEqual(isPreferred, a.IsPreferred);
 
 
 
@@ -247,7 +290,7 @@ END:VCARD";
             Assert.AreEqual(isPreferred, p.IsPreferred);
 
 
-          //  types.HasFlag(
+            //  types.HasFlag(
 
 
 
@@ -266,7 +309,7 @@ END:VCARD";
 
             if (email == null)
             {
-                Assert.Fail("email value " + value  + "  is not found in collection");
+                Assert.Fail("email value " + value + "  is not found in collection");
             }
 
             Assert.AreEqual(itemType, email.ItemType);

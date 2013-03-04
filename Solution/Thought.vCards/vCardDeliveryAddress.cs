@@ -233,6 +233,29 @@ namespace Thought.vCards
             }
         }
 
+        /// <summary>
+        ///     Indicates a preferred address
+        /// </summary>
+        public bool IsPreferred
+        {
+            get
+            {
+                return (this.addressType & vCardDeliveryAddressTypes.Preferred) ==
+                    vCardDeliveryAddressTypes.Preferred;
+            }
+            set
+            {
+                if (value)
+                {
+                    this.addressType |= vCardDeliveryAddressTypes.Preferred;
+                }
+                else
+                {
+                    this.addressType &= ~vCardDeliveryAddressTypes.Preferred;
+                }
+            }
+        }
+
 
         /// <summary>
         ///     The postal code (e.g. ZIP code) of the address.

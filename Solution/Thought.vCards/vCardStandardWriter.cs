@@ -336,6 +336,11 @@ namespace Thought.vCards
                     if (address.IsWork)
                         property.Subproperties.Add("WORK");
 
+                    if (address.IsPreferred)
+                    {
+                        property.Subproperties.Add("PREF");
+                    }
+
                     properties.Add(property);
 
                 }
