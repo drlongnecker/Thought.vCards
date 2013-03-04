@@ -222,7 +222,35 @@ END:VCARD";
 
                 CheckAddress(c.DeliveryAddresses, "8230 Boone Blvd", "Vinna", "VA", "22182", "United States", vCardDeliveryAddressTypes.Home | vCardDeliveryAddressTypes.Preferred, true);
 
+                CheckIM(c.IMs, "skypeusernameee", IMServiceType.Skype, ItemType.HOME, true);
+                CheckIM(c.IMs, "worksyokeusername", IMServiceType.Skype, ItemType.WORK, false);
                 CheckIM(c.IMs, "msnname", IMServiceType.MSN, ItemType.UNSPECIFIED, false);
+                CheckIM(c.IMs, "aolname", IMServiceType.AIM, ItemType.UNSPECIFIED, false);
+                CheckIM(c.IMs, "gtalkname", IMServiceType.GoogleTalk, ItemType.UNSPECIFIED, false);
+                CheckIM(c.IMs, "yahooname", IMServiceType.Yahoo, ItemType.UNSPECIFIED, false);
+                CheckIM(c.IMs, "fbchatname", IMServiceType.Facebook, ItemType.UNSPECIFIED, false);
+                CheckIM(c.IMs, "jabbername", IMServiceType.Jabber, ItemType.UNSPECIFIED, false);
+
+
+
+
+
+                //temp quickly
+              /*  vCardStandardWriter writer = new vCardStandardWriter();
+
+                using (StringWriter sw = new StringWriter())
+                {
+
+                    writer.Write(c, sw);
+
+                    sw.Flush();
+                    text = sw.ToString();
+                    sw.Close();
+                }
+
+
+                Assert.IsNotNull(text);
+                */
 
             }
 
@@ -240,7 +268,7 @@ END:VCARD";
 
             var im = ims.FirstOrDefault(x => x.Handle == handle && x.ServiceType == serviceType);
 
-            Assert.IsNotNull(im);
+            Assert.IsNotNull(im, "im not matched for handle " + handle + " and servicetype " + serviceType.ToString());
             Assert.AreEqual(itemType,im.ItemType);
             Assert.AreEqual(isPreferred, im.IsPreferred);
 

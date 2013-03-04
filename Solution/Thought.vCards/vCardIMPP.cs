@@ -175,7 +175,7 @@ namespace Thought.vCards
         /// 
         /// <param name="serviceType">IMServiceType to get the subproperty info for </param>
         /// <returns>for example GoogleTalk:xmpp, or for yahoo Yahoo:ymsgr</returns>
-        public static string GetIMTypeProperty(IMServiceType serviceType)
+        public static string GetIMTypePropertyFull(IMServiceType serviceType)
         {
 
             if (lookup.ContainsKey(serviceType))
@@ -188,6 +188,47 @@ namespace Thought.vCards
         }
 
         /// <summary>
+        /// returns the xmpp or aim or ymsgr portion of the lookup for AIM:aim, Yahoo:ysmgr, etc
+        /// </summary>
+        /// <param name="serviceType">IMServiceType  to fetch the lookup for</param>
+        /// <returns>xmpp or msnim</returns>
+        public static string GetIMTypePropertySuffix(IMServiceType serviceType)
+        {
+            string suffix = null;
+            if (lookup.ContainsKey(serviceType))
+            {
+                string full = lookup[serviceType];
+
+                suffix = full.Substring(full.IndexOf(":") + 1);
+
+            }
+
+            return suffix;
+        }
+
+        /// <summary>
+        /// this method will return the first part of the AIM:aim , or MSN:msnim string used for writing out the property subproperty info for IMPP values
+        /// </summary>
+        /// <param name="serviceType">the IM service type to fetch from the dictionary</param>
+        /// <returns>AIM or QQ or Yahoo, the first string component for the lookup of serviceTypes</returns>
+        public static string GetIMTypePropertyPrefix(IMServiceType serviceType)
+        {
+            string prefix = null;
+            if (lookup.ContainsKey(serviceType))
+            {
+                string full = lookup[serviceType];
+
+                  prefix = full.Substring(0, full.IndexOf(":"));
+           
+            }
+
+            return prefix;
+            
+
+        }
+
+
+        /// <summary>
         /// the handle is coming back with the msnim:handle, so we want to return the pure handle minus the msnim:
         /// </summary>
         /// <param name="serviceType"></param>
@@ -196,7 +237,7 @@ namespace Thought.vCards
         public static string StripHandlePrefix(IMServiceType serviceType, string handle)
         {
 
-            string property = GetIMTypeProperty(serviceType);
+            string property = GetIMTypePropertyFull(serviceType);
 
 
             if (property != null)
@@ -229,7 +270,7 @@ namespace Thought.vCards
                 case "aim":
                     serviceType = IMServiceType.AIM;
                     break;
-                case "faceook":
+                case "facebook":
                     serviceType = IMServiceType.Facebook;
                     break;
                 case "googletalk":

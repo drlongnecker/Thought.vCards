@@ -197,6 +197,8 @@ namespace Thought.vCards
                 properties,
                 card);
 
+            BuildProperties_IMPP(properties, card);
+
             BuildProperties_KEY(
                 properties,
                 card);
@@ -491,7 +493,7 @@ namespace Thought.vCards
                         break;
 
                     case vCardEmailAddressType.AttMail:
-                        property.Subproperties.Add(TYPE,"ATTMail");
+                        property.Subproperties.Add(TYPE, "ATTMail");
                         break;
 
                     case vCardEmailAddressType.CompuServe:
@@ -532,7 +534,7 @@ namespace Thought.vCards
 
                 }
 
-                switch(emailAddress.ItemType)
+                switch (emailAddress.ItemType)
                 {
                     case ItemType.UNSPECIFIED:
                         //do nothing
@@ -611,6 +613,58 @@ namespace Thought.vCards
         }
 
         #endregion
+
+
+        private void BuildProperties_IMPP(vCardPropertyCollection properties, vCard card)
+        {
+
+            // adding support for IMPP (IM handles) in the vCard
+            //iOS outputs this => IMPP;X-SERVICE-TYPE=Skype;type=HOME;type=pref:skype:skypeusernameee
+
+
+
+            foreach (var im in card.IMs)
+            {
+
+                vCardProperty property = new vCardProperty();
+                property.Name = "IMPP";
+
+
+                string subProperty = IMTypeUtils.GetIMTypePropertyFull(im.ServiceType);
+                string prefix = IMTypeUtils.GetIMTypePropertyPrefix(im.ServiceType);
+                string suffix = IMTypeUtils.GetIMTypePropertySuffix(im.ServiceType);
+
+                property.Subproperties.Add("X-SERVICE-TYPE", prefix);
+                property.Value = string.Concat(suffix, ":", im.Handle);
+
+
+                if (im.IsPreferred)
+                {
+                    property.Subproperties.Add(TYPE, "PREF");
+                }
+
+                switch (im.ItemType)
+                {
+
+                    case ItemType.HOME:
+                        property.Subproperties.Add(TYPE, ItemType.HOME.ToString());
+                        break;
+                    case ItemType.WORK:
+                        property.Subproperties.Add(TYPE, ItemType.WORK.ToString());
+                        break;
+
+                    case ItemType.UNSPECIFIED:
+                    default:
+                        property.Subproperties.Add(TYPE, "OTHER");
+                        break;
+                }
+
+                properties.Add(property);
+
+            }
+
+        }
+
 
         #region [ BuildProperties_KEY ]
 
@@ -1092,7 +1146,7 @@ namespace Thought.vCards
                 vCardProperty property = new vCardProperty();
 
                 property.Name = "TEL";
-                
+
                 if (phone.IsBBS)
                     property.Subproperties.Add("BBS");
 
