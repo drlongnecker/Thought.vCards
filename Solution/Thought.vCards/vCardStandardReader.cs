@@ -1133,6 +1133,10 @@ namespace Thought.vCards
                     ReadInto_URL(card, property);
                     break;
 
+                case "X-SOCIALPROFILE":
+                    ReadInto_XSocialProfile(card, property);
+                    break;
+
                 case "X-WAB-GENDER":
                     ReadInto_X_WAB_GENDER(card, property);
                     break;
@@ -2064,6 +2068,62 @@ namespace Thought.vCards
         }
 
         #endregion
+
+
+        private void ReadInto_XSocialProfile(vCard card, vCardProperty property)
+        {
+
+            vCardSocialProfile sp = new vCardSocialProfile();
+ 
+
+            sp.ProfileUrl = property.ToString();
+            if (string.IsNullOrEmpty(sp.ProfileUrl))
+                return;
+
+            foreach (vCardSubproperty subproperty in property.Subproperties)
+            {
+
+                switch (subproperty.Name.ToUpperInvariant())
+                {
+
+                    case "X-USER":
+
+                        sp.Username = subproperty.Value;
+
+                        break;
+
+                    case "TYPE":
+              
+
+                        string[] typeValues =
+                            subproperty.Value.Split(new char[] { ',' });
+
+                        foreach (string typeValue in typeValues)
+                        {
+
+                            SocialProfileServiceType? profileType = SocialProfileTypeUtils.GetSocialProfileServiceType(typeValue);
+
+
+                                if (profileType.HasValue)
+                                {
+                                    sp.ServiceType = profileType.Value;
+
+
+                                }
+ 
+
+                 
+
+                        }
+                        break;
+
+                }
+
+            }
+
+            card.SocialProfiles.Add(sp);
+
+        }
 
         #region [ ReadInto_X_WAB_GENDER ]
 

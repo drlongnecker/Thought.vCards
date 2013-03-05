@@ -259,6 +259,8 @@ namespace Thought.vCards
                 properties,
                 card);
 
+            BuildProperties_XSOCIALPROFILE(properties, card);
+
             BuildProperties_X_WAB_GENDER(
                 properties,
                 card);
@@ -1290,6 +1292,32 @@ namespace Thought.vCards
         }
 
         #endregion
+
+
+        private void BuildProperties_XSOCIALPROFILE(vCardPropertyCollection properties, vCard card)
+        {
+
+            // adding support for X-SOCIALPROFILE) in the vCard
+
+
+            foreach (var sp in card.SocialProfiles)
+            {
+
+                vCardProperty property = new vCardProperty();
+                property.Name = "X-SOCIALPROFILE";
+
+                string propertyType = SocialProfileTypeUtils.GetSocialProfileServicePropertyType(sp.ServiceType);
+
+                property.Subproperties.Add("TYPE", propertyType);
+                property.Subproperties.Add("X-USER", sp.Username);
+                property.Value = sp.ProfileUrl;
+
+                properties.Add(property);
+
+            }
+
+        }
+
 
         #region [ BuildProperties_X_WAB_GENDER ]
 

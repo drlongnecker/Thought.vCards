@@ -73,6 +73,7 @@ namespace Thought.vCards
         private vCardSourceCollection sources;
         private vCardWebsiteCollection websites;
         private vCardIMPPCollection ims;
+        private vCardSocialProfileCollection sps;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="vCard"/> class.
@@ -113,6 +114,7 @@ namespace Thought.vCards
             this.sources = new vCardSourceCollection();
             this.websites = new vCardWebsiteCollection();
             this.ims = new vCardIMPPCollection();
+            this.sps = new vCardSocialProfileCollection();
         }
 
 
@@ -749,6 +751,14 @@ namespace Thought.vCards
         public vCardIMPPCollection IMs
         {
             get { return this.ims; }
+        }
+
+        /// <summary>
+        /// SocialProfile collection for the vCard in the X-SOCIALPROFILE property
+        /// </summary>
+        public vCardSocialProfileCollection SocialProfiles
+        {
+            get { return this.sps; }
         }
 
     }

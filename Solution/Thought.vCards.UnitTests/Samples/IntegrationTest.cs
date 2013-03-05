@@ -231,12 +231,16 @@ END:VCARD";
                 CheckIM(c.IMs, "fbchatname", IMServiceType.Facebook, ItemType.UNSPECIFIED, false);
                 CheckIM(c.IMs, "jabbername", IMServiceType.Jabber, ItemType.UNSPECIFIED, false);
 
-
+                Assert.AreEqual(4, c.SocialProfiles.Count);
+                CheckSocialProfile(c.SocialProfiles, "nicatlinkedin", "http://www.linkedin.com/in/nicatlinkedin", SocialProfileServiceType.LinkedIn);
+                CheckSocialProfile(c.SocialProfiles, "tiffanystone", "http://twitter.com/tiffanystone", SocialProfileServiceType.Twitter);
+                CheckSocialProfile(c.SocialProfiles, "tiffatfacebook", "http://www.facebook.com/tiffatfacebook", SocialProfileServiceType.Facebook);
+                CheckSocialProfile(c.SocialProfiles, "gregabedard", "http://twitter.com/gregabedard", SocialProfileServiceType.Twitter);
 
 
 
                 //temp quickly
-              /*  vCardStandardWriter writer = new vCardStandardWriter();
+              vCardStandardWriter writer = new vCardStandardWriter();
 
                 using (StringWriter sw = new StringWriter())
                 {
@@ -250,11 +254,29 @@ END:VCARD";
 
 
                 Assert.IsNotNull(text);
-                */
+              
 
             }
 
 
+
+        }
+
+        private void CheckSocialProfile(vCardSocialProfileCollection sps, string username, string url, SocialProfileServiceType serviceType)
+        {
+            if (sps == null || sps.Count == 0)
+            {
+                Assert.Fail("sps null or empty");
+            }
+
+            var sp = sps.FirstOrDefault(x => x.Username == username && x.ServiceType == serviceType);
+
+            Assert.IsNotNull(sp, "no match for socialProfile for " + username + " for serviceType " + serviceType.ToString());
+
+
+            Assert.AreEqual(url, sp.ProfileUrl);
+            Assert.AreEqual(username, sp.Username);
+            Assert.AreEqual(serviceType, sp.ServiceType);
 
         }
 

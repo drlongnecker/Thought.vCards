@@ -59,6 +59,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="vCardSocialProfile.cs" />
+    <Compile Include="vCardSocialProfileCollection.cs" />
     <Compile Include="vCardIMPP.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="vCard.cs" />
