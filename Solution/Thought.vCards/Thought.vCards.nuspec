@@ -2,14 +2,14 @@
 <package >
   <metadata>
     <id>Thought.vCards</id>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <authors>dublabs</authors>
     <owners>dublabs</owners>
     <licenseUrl>http://www.thoughtproject.com/Libraries/vCard/</licenseUrl>
     <projectUrl>http://www.thoughtproject.com/Libraries/vCard/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Extension of the current Thought.vCards project to parse and generate vCard</description>
-    <releaseNotes>Included an update to support the IMPP format for Instant Messengers, type=blah format for telephone, and added support for X-SOCIALPROFILE for social network profile links.</releaseNotes>
+    <releaseNotes>Fix for IMPP ICQ type.</releaseNotes>
     <copyright>Copyright 2013</copyright>
     <tags>vCard</tags>
     <dependencies/>

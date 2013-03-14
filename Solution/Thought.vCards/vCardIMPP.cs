@@ -160,10 +160,10 @@ namespace Thought.vCards
             lookup.Add(IMServiceType.AIM, "AIM:aim");
             lookup.Add(IMServiceType.Facebook, "Facebook:xmpp");
             lookup.Add(IMServiceType.GoogleTalk, "GoogleTalk:xmpp");
-            lookup.Add(IMServiceType.ICQ, "ICQ:icq");
+            lookup.Add(IMServiceType.ICQ, "ICQ:aim");
             lookup.Add(IMServiceType.Jabber, "Jabber:xmpp");
             lookup.Add(IMServiceType.MSN, "MSN:msnim");
-            lookup.Add(IMServiceType.QQ, "QQ:xmpp");
+            lookup.Add(IMServiceType.QQ, "QQ:x-apple");
             lookup.Add(IMServiceType.Skype, "Skype:skype");
             lookup.Add(IMServiceType.Yahoo, "Yahoo:ymsgr");
 
