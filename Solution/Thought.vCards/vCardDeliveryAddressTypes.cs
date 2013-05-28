@@ -13,7 +13,6 @@ namespace Thought.vCards
     /// <summary>
     ///     The type of a delivery address.
     /// </summary>
-    [Flags]
     public enum vCardDeliveryAddressTypes
     {
 
