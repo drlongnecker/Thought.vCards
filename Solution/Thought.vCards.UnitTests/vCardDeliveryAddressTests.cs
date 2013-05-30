@@ -162,7 +162,7 @@ namespace Tests
 
             vCardDeliveryAddress address = new vCardDeliveryAddress();
 
-            address.AddressType = vCardDeliveryAddressTypes.Domestic;
+            address.AddressType.Add(vCardDeliveryAddressTypes.Domestic);
             Assert.AreEqual(
                 vCardDeliveryAddressTypes.Domestic,
                 address.AddressType,
@@ -202,126 +202,6 @@ namespace Tests
                 "Jordan",
                 address.Country,
                 "The Country property is not working.");
-        }
-
-        #endregion
-
-        #region [ ReadWriteProperty_IsDomestic ]
-
-        [TestMethod]
-        public void ReadWriteProperty_IsDomestic()
-        {
-
-            vCardDeliveryAddress address = new vCardDeliveryAddress();
-            address.IsDomestic = true;
-            Assert.IsTrue(
-                address.IsDomestic,
-                "IsDomestic should have been set to true.");
-
-            address.IsDomestic = false;
-            Assert.IsFalse(
-                address.IsDomestic,
-                "IsDomestic should have been set to false.");
-        }
-
-        #endregion
-
-        #region [ ReadWriteProperty_IsHome ]
-
-        [TestMethod]
-        public void ReadWriteProperty_IsHome()
-        {
-
-            vCardDeliveryAddress address = new vCardDeliveryAddress();
-            address.IsHome = true;
-            Assert.IsTrue(
-                address.IsHome,
-                "IsHome should have been set to true.");
-
-            address.IsHome = false;
-            Assert.IsFalse(
-                address.IsHome,
-                "IsHome should have been set to false.");
-        }
-
-        #endregion
-
-        #region [ ReadWriteProperty_IsInternational ]
-
-        [TestMethod]
-        public void ReadWriteProperty_IsInternational()
-        {
-
-            vCardDeliveryAddress address = new vCardDeliveryAddress();
-            address.IsInternational = true;
-            Assert.IsTrue(
-                address.IsInternational,
-                "IsInternational should have been set to true.");
-
-            address.IsInternational = false;
-            Assert.IsFalse(
-                address.IsInternational,
-                "IsInternational should have been set to false.");
-        }
-
-        #endregion
-
-        #region [ ReadWriteProperty_IsParcel ]
-
-        [TestMethod]
-        public void ReadWriteProperty_IsParcel()
-        {
-
-            vCardDeliveryAddress address = new vCardDeliveryAddress();
-            address.IsParcel = true;
-            Assert.IsTrue(
-                address.IsParcel,
-                "IsParcel should have been set to true.");
-
-            address.IsParcel = false;
-            Assert.IsFalse(
-                address.IsParcel,
-                "IsParcel should have been set to false.");
-        }
-
-        #endregion
-
-        #region [ ReadWriteProperty_IsPostal ]
-
-        [TestMethod]
-        public void ReadWriteProperty_IsPostal()
-        {
-
-            vCardDeliveryAddress address = new vCardDeliveryAddress();
-            address.IsPostal = true;
-            Assert.IsTrue(
-                address.IsPostal,
-                "IsPostal should have been set to true.");
-
-            address.IsPostal = false;
-            Assert.IsFalse(
-                address.IsPostal,
-                "IsPostal should have been set to false.");
-        }
-
-        #endregion
-
-        #region [ ReadWriteProperty_IsWork ]
-
-        [TestMethod]
-        public void ReadWriteProperty_IsWork()
-        {
-
-            vCardDeliveryAddress address = new vCardDeliveryAddress();
-            address.IsWork = true;
-            Assert.IsTrue(
-                address.IsWork,
-                "IsWork should have been set to true.");
-
-            address.IsWork = false;
-            Assert.IsFalse(
-                address.IsWork,
-                "IsWork should have been set to false.");
         }
 
         #endregion

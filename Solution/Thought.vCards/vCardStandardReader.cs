@@ -5,6 +5,7 @@
  * ======================================================================= */
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -919,14 +920,13 @@ namespace Thought.vCards
         ///     A <see cref="vCardDeliveryAddressTypes"/> flags enumeration
         ///     that corresponds with all known type names from the array.
         /// </returns>
-        public static vCardDeliveryAddressTypes ParseDeliveryAddressType(string[] typeNames)
+        public static List<vCardDeliveryAddressTypes> ParseDeliveryAddressType(string[] typeNames)
         {
-
-            vCardDeliveryAddressTypes allTypes = vCardDeliveryAddressTypes.Default;
+			List<vCardDeliveryAddressTypes> allTypes = new List<vCardDeliveryAddressTypes>();
 
             foreach (string typeName in typeNames)
             {
-                allTypes |= ParseDeliveryAddressType(typeName);
+				allTypes.Add(ParseDeliveryAddressType(typeName));
             }
 
             return allTypes;
@@ -1247,7 +1247,7 @@ namespace Thought.vCards
                     (string.Compare("TYPE", sub.Name, StringComparison.OrdinalIgnoreCase) == 0))
                 {
 
-                    deliveryAddress.AddressType |=
+                    deliveryAddress.AddressType =
                         ParseDeliveryAddressType(sub.Value.Split(new char[] { ',' }));
 
                 }
@@ -1646,7 +1646,7 @@ namespace Thought.vCards
                     (string.Compare("TYPE", sub.Name, StringComparison.OrdinalIgnoreCase) == 0))
                 {
 
-                    label.AddressType |=
+                    label.AddressType =
                         ParseDeliveryAddressType(sub.Value.Split(new char[] { ',' }));
 
                 }
