@@ -629,5 +629,20 @@ namespace Tests
 
         #endregion
 
+        #region [ ReadProperty_Blank_Subproperty ]
+
+        [Test]
+        public void ReadProperty_Blank_Subproperty()
+        {
+            vCardStandardReader reader =
+                new vCardStandardReader();
+
+            Assert.DoesNotThrow(
+                () => { reader.ReadProperty("NAME;:VALUE"); },
+                "Exception was thrown.");
+        }
+
+        #endregion
+
     }
 }
