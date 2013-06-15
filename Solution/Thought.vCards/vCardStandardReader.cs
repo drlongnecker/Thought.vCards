@@ -2074,8 +2074,18 @@ namespace Thought.vCards
                         // was present.  The subproperty consists of
                         // a name only.
 
-                        property.Subproperties.Add(
-                            nameParts[index].Trim());
+                        string name = nameParts[index].Trim();
+
+                        if (string.IsNullOrEmpty(name))
+                        {
+                            Warnings.Add(Thought.vCards.WarningMessages.EmptySubProperty);
+                        }
+                        else
+                        {
+                            property.Subproperties.Add(
+                                name);
+                        }
+
                     }
                     else
                     {
