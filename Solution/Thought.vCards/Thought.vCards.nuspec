@@ -2,14 +2,14 @@
 <package >
   <metadata>
     <id>Thought.vCards</id>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <authors>dublabs</authors>
     <owners>dublabs</owners>
     <licenseUrl>http://www.thoughtproject.com/Libraries/vCard/</licenseUrl>
     <projectUrl>http://www.thoughtproject.com/Libraries/vCard/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Extension of the current Thought.vCards project to parse and generate vCard</description>
-    <releaseNotes>Fix for IMPP ICQ type.</releaseNotes>
+    <description>bug fix on REV date property</description>
+    <releaseNotes>Fix for REV: property not returning a proper ISO 8601 date format</releaseNotes>
     <copyright>Copyright 2013</copyright>
     <tags>vCard</tags>
     <dependencies/>

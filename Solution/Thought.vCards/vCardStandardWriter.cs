@@ -1053,7 +1053,7 @@ namespace Thought.vCards
             {
 
                 vCardProperty property =
-                    new vCardProperty("REV", card.RevisionDate.Value.ToString());
+                    new vCardProperty("REV", card.RevisionDate.Value.ToString("s") + "Z");
 
                 properties.Add(property);
 

@@ -263,6 +263,16 @@ namespace Tests
                 card.RevisionDate,
                 "The RevisionDate property is not working.");
 
+        // format not working right when it comes to write out the REV property
+        // REV:2013-09-18T15:39:21Z
+        // REV:20130918T153921Z
+
+            DateTime date = DateTime.Parse("11/25/2012 01:01 AM");
+
+            string revDate =  date.ToString("s") + "Z";
+
+            Assert.AreEqual("2012-11-25T01:01:00Z", revDate);
+
         }
 
         #endregion

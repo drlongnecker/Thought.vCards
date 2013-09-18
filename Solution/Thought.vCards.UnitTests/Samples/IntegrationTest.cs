@@ -313,7 +313,16 @@ END:VCARD";
             Assert.AreEqual(state, a.Region);
             Assert.AreEqual(zip, a.PostalCode);
             Assert.AreEqual(country, a.Country);
-            Assert.AreEqual(addressTypes, a.AddressType);
+
+
+            foreach(var adr in a.AddressType)
+            {
+                Assert.AreEqual(addressTypes, adr, "address types are not equal");
+            }
+            
+
+
+          //  Assert.AreEqual(addressTypes, a.AddressType.);
             Assert.AreEqual(isPreferred, a.IsPreferred);
 
 

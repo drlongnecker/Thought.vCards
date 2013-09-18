@@ -163,11 +163,10 @@ namespace Tests
             vCardDeliveryAddress address = new vCardDeliveryAddress();
 
             address.AddressType.Add(vCardDeliveryAddressTypes.Domestic);
-            Assert.AreEqual(
-                vCardDeliveryAddressTypes.Domestic,
-                address.AddressType,
-                "The AddressType property is not working.");
 
+            Assert.IsTrue(address.AddressType.Contains(vCardDeliveryAddressTypes.Domestic), "The AddressType property is not working.");
+
+ 
         }
 
         #endregion
