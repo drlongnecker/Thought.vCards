@@ -70,6 +70,7 @@ namespace Tests.Samples
             card.EmailAddresses.Add(new vCardEmailAddress() { Address = "john@email.com", EmailType = vCardEmailAddressType.Internet, IsPreferred = true, ItemType = ItemType.WORK });
 
 
+
             card.UniqueId = Guid.NewGuid().ToString("N");
 
             string text = card.ToString();
@@ -105,6 +106,71 @@ namespace Tests.Samples
                 Assert.AreEqual(vCardEmailAddressType.Internet, email.EmailType);
                 Assert.AreEqual("john@email.com", email.Address);
             }
+
+        }
+
+        [TestMethod]
+        public void SamplevCardReadAndWriteTestWithPhotos()
+        {
+            string base64Photo = @"/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQY
+ GBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYa
+ KCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAAR
+ CAA3AEgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAA
+ AgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkK
+ FhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWG
+ h4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl
+ 5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREA
+ AgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYk
+ NOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOE
+ hYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk
+ 5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwC3KUf7wwaiFvuPDDHrVh0yaiMeWrarK2pw
+ wi2KLeFfvuD9KiuY4SmI1JPris3xHq0ek2jGMq1zjcseCeB3OK4+HxZdy3DPcXKwRkbVVEHX
+ 8a5f3k1dLQ6Y0ktzt4oBGc7efellkYDl1UflXAf23Pf+dbC/lSR8iOTdgA9gccVys012929t
+ ctdyXCttZM96hU5vRs29nHqes3FzbqhaW6jwOD84pkSxzwiWE70PQiuJsYksIrYXcjiSWQKk
+ PmEjJOOnSu58ORMbFgfugjH1wM05R5epnKNitNbjHIorUnh5orRSdjFm6RzUNyTHDI64DAEj
+ NWShzXK/EKa4h0lI4Nw81yGYdgAa6KkeZ2FRTbsjm3uhe6m6wjzmZtssj8nnPT2r0bwl8PbX
+ WkQTJkOcMw4K1434SWeS5crkhWz9TXtWjeNL62RUsbEKYQPnKnBx159awrNqVketQgoxba1J
+ L/4GPFqUklpKGhjG4Ajlq8o8Z6i+m6rLDYpCXVArMUyQfTNfTcPxBYaJb382nSyGWQxbIsn5
+ sZ544FfKPjW6sLjxNqrQvIiPcu+NucZOcfhVRSlruYT9ptJWK/hQf2lrol1OR55kUvCB8qof
+ p3r1bw8mLGQej4/QV5n4Njt/7Zi8mV3cI2QVx2+tepaAP9Fn/wCup/kKjEJKyRzu9ncS5XBo
+ pNUYxwyMvUDiiiEbo53ubgIrN8QQefp8oVBIVG7Yeje1Le38VlA007YRRn3P0rzjVviBfS3c
+ kNrEkEe7ardWx/Ku2VCc37oUW07ot6FaLaSQ3ESnyZTnawwV7YNev6Jqun2nhq6eWKBJVjOD
+ gDJxXik+tui20wybdkCvj+Fh1qGXUDrV59ne5ZbZV+VVPDH3FctWk+bU9mnW5Vdnufwq8S6X
+ cm6tbqeNwxDqG6bhnp74r5d8R3sVzr+oz2/+rluJHQexY4r0AJpunaN9os3PmF9nQjBxya8+
+ uNEfzA0dxEQ3IzxWtKHIr9DKtUU5PubnwzzLr7Z52wk/yFev6EmLSf8A66n+Qryz4c2Mmn6p
+ cTXDJtaMKCpz1I/wr1bQmBs5COhkJrLEatHFOVmylrp227+/FFQeIXOFUHqaK0pR905Wzh9Z
+ 1P8AtdWmZiVUYxyB9MVw2ptJDqLM2MqR09+9FFe7XSVNWN6as7HU+CZI7u9u7C5BZJcSLnse
+ 9dLF8OWursHS7sQSMeFcZX/61FFeRXk4zdjqi/dOWuGkhlnspHDCCZ4zjoSDg4/nV/wJNC+t
+ xW91Ek0UoZGV1yMjoR+VFFdc4r2TXkYSep2euafZ6ftlsrdY95+YLxnFa+iOY9MUHqSTRRXl
+ PWKMZtsyNal3Tge1FFFdtKK5UZM//9k=";
+
+
+            vCard card = new vCard();
+
+            card.EmailAddresses.Add(new vCardEmailAddress() { Address = "john@email.com", EmailType = vCardEmailAddressType.Internet, IsPreferred = true, ItemType = ItemType.WORK });
+            card.Photos.Add(new vCardPhoto(base64Photo, true));
+            card.UniqueId = Guid.NewGuid().ToString("N");
+
+            string text = card.ToString();
+
+            vCardStandardWriter writer = new vCardStandardWriter();
+
+            using (StringWriter sw = new StringWriter())
+            {
+
+                writer.Write(card, sw);
+
+                sw.Flush();
+                text = sw.ToString();
+                sw.Close();
+            }
+
+
+            Assert.IsNotNull(text);
+
+
+
+
 
         }
 
@@ -179,7 +245,38 @@ END:VCARD";
         [TestMethod]
         public void ShouldReadvCardWithAllCBFieldsFilledOutFromiPhoneNAB()
         {
-            string text = @"BEGIN:VCARDVERSION:3.0PRODID:-//Apple Inc.//iOS 6.0.1//ENN:iOS;Nic;;;FN:Nic iOSORG:Ibm;TITLE:Sales Guyitem1.EMAIL;type=INTERNET;type=pref:nic.schlueter@dublabs.comEMAIL;type=INTERNET;type=WORK:nic@work.comEMAIL;type=INTERNET;type=WORK:nic2@work.comEMAIL;type=INTERNET;type=HOME:h@h.comEMAIL;type=INTERNET;type=HOME:y@y.comTEL;type=CELL;type=VOICE;type=pref:(202) 333-4555TEL;type=IPHONE;type=CELL;type=VOICE:(202) 333-4444TEL;type=HOME;type=VOICE:(333) 222-2222TEL;type=WORK;type=VOICE:(809) 555-6666 x444TEL;type=MAIN:(609) 888-7777TEL;type=HOME;type=FAX:(555) 444-4443TEL;type=WORK;type=FAX:33322222222item2.TEL:(999) 777-7999item2.X-ABLabel:personalitem3.ADR;type=HOME;type=pref:;;8230 Boone Blvd;Vinna;VA;22182;United Statesitem3.X-ABADR:usitem4.URL;type=pref:http://facebook.com/max.solenderitem4.X-ABLabel:Profileitem5.URL:www.ibm.comitem5.X-ABLabel:_$!<HomePage>!$_item6.X-MSN:msnnameitem6.X-ABLabel:_$!<Other>!$_item7.X-AIM:aolnameitem7.X-ABLabel:_$!<Other>!$_item8.X-YAHOO:yahoonameitem8.X-ABLabel:_$!<Other>!$_item9.X-JABBER:jabbernameitem9.X-ABLabel:_$!<Other>!$_IMPP;X-SERVICE-TYPE=Skype;type=HOME;type=pref:skype:skypeusernameeeIMPP;X-SERVICE-TYPE=Skype;type=WORK:skype:worksyokeusernameitem10.IMPP;X-SERVICE-TYPE=MSN:msnim:msnnameitem10.X-ABLabel:_$!<Other>!$_item11.IMPP;X-SERVICE-TYPE=AIM:aim:aolnameitem11.X-ABLabel:_$!<Other>!$_item12.IMPP;X-SERVICE-TYPE=GoogleTalk:xmpp:gtalknameitem12.X-ABLabel:_$!<Other>!$_item13.IMPP;X-SERVICE-TYPE=Yahoo:ymsgr:yahoonameitem13.X-ABLabel:_$!<Other>!$_item14.IMPP;X-SERVICE-TYPE=Facebook:xmpp:fbchatnameitem14.X-ABLabel:_$!<Other>!$_item15.IMPP;X-SERVICE-TYPE=Jabber:xmpp:jabbernameitem15.X-ABLabel:_$!<Other>!$_X-SOCIALPROFILE;type=linkedin;x-user=nicatlinkedin:http://www.linkedin.com/in/nicatlinkedinX-SOCIALPROFILE;type=twitter;x-user=tiffanystone:http://twitter.com/tiffanystoneX-SOCIALPROFILE;type=facebook;x-user=tiffatfacebook:http://www.facebook.com/tiffatfacebookX-SOCIALPROFILE;type=twitter;x-user=gregabedard:http://twitter.com/gregabedardEND:VCARD";
+            string text = @"BEGIN:VCARDVERSION:3.0PRODID:-//Apple Inc.//iOS 6.0.1//ENN:iOS;Nic;;;FN:Nic iOSORG:Ibm;TITLE:Sales Guyitem1.EMAIL;type=INTERNET;type=pref:nic.schlueter@dublabs.comEMAIL;type=INTERNET;type=WORK:nic@work.comEMAIL;type=INTERNET;type=WORK:nic2@work.comEMAIL;type=INTERNET;type=HOME:h@h.comEMAIL;type=INTERNET;type=HOME:y@y.comTEL;type=CELL;type=VOICE;type=pref:(202) 333-4555TEL;type=IPHONE;type=CELL;type=VOICE:(202) 333-4444TEL;type=HOME;type=VOICE:(333) 222-2222TEL;type=WORK;type=VOICE:(809) 555-6666 x444TEL;type=MAIN:(609) 888-7777TEL;type=HOME;type=FAX:(555) 444-4443TEL;type=WORK;type=FAX:33322222222item2.TEL:(999) 777-7999item2.X-ABLabel:personalitem3.ADR;type=HOME;type=pref:;;8230 Boone Blvd;Vinna;VA;22182;United Statesitem3.X-ABADR:usitem4.URL;type=pref:http://facebook.com/max.solenderitem4.X-ABLabel:Profileitem5.URL:www.ibm.comitem5.X-ABLabel:_$!<HomePage>!$_item6.X-MSN:msnnameitem6.X-ABLabel:_$!<Other>!$_item7.X-AIM:aolnameitem7.X-ABLabel:_$!<Other>!$_item8.X-YAHOO:yahoonameitem8.X-ABLabel:_$!<Other>!$_item9.X-JABBER:jabbernameitem9.X-ABLabel:_$!<Other>!$_IMPP;X-SERVICE-TYPE=Skype;type=HOME;type=pref:skype:skypeusernameeeIMPP;X-SERVICE-TYPE=Skype;type=WORK:skype:worksyokeusernameitem10.IMPP;X-SERVICE-TYPE=MSN:msnim:msnnameitem10.X-ABLabel:_$!<Other>!$_item11.IMPP;X-SERVICE-TYPE=AIM:aim:aolnameitem11.X-ABLabel:_$!<Other>!$_item12.IMPP;X-SERVICE-TYPE=GoogleTalk:xmpp:gtalknameitem12.X-ABLabel:_$!<Other>!$_item13.IMPP;X-SERVICE-TYPE=Yahoo:ymsgr:yahoonameitem13.X-ABLabel:_$!<Other>!$_item14.IMPP;X-SERVICE-TYPE=Facebook:xmpp:fbchatnameitem14.X-ABLabel:_$!<Other>!$_item15.IMPP;X-SERVICE-TYPE=Jabber:xmpp:jabbernameitem15.X-ABLabel:_$!<Other>!$_X-SOCIALPROFILE;type=linkedin;x-user=nicatlinkedin:http://www.linkedin.com/in/nicatlinkedinX-SOCIALPROFILE;type=twitter;x-user=tiffanystone:http://twitter.com/tiffanystoneX-SOCIALPROFILE;type=facebook;x-user=tiffatfacebook:http://www.facebook.com/tiffatfacebookX-SOCIALPROFILE;type=twitter;x-user=gregabedard:http://twitter.com/gregabedardPHOTO;TYPE=JPEG;ENCODING=BASE64:
+ /9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQY
+ GBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYa
+ KCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAAR
+ CAA3AEgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAA
+ AgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkK
+ FhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWG
+ h4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl
+ 5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREA
+ AgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYk
+ NOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOE
+ hYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk
+ 5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwC3KUf7wwaiFvuPDDHrVh0yaiMeWrarK2pw
+ wi2KLeFfvuD9KiuY4SmI1JPris3xHq0ek2jGMq1zjcseCeB3OK4+HxZdy3DPcXKwRkbVVEHX
+ 8a5f3k1dLQ6Y0ktzt4oBGc7efellkYDl1UflXAf23Pf+dbC/lSR8iOTdgA9gccVys012929t
+ ctdyXCttZM96hU5vRs29nHqes3FzbqhaW6jwOD84pkSxzwiWE70PQiuJsYksIrYXcjiSWQKk
+ PmEjJOOnSu58ORMbFgfugjH1wM05R5epnKNitNbjHIorUnh5orRSdjFm6RzUNyTHDI64DAEj
+ NWShzXK/EKa4h0lI4Nw81yGYdgAa6KkeZ2FRTbsjm3uhe6m6wjzmZtssj8nnPT2r0bwl8PbX
+ WkQTJkOcMw4K1434SWeS5crkhWz9TXtWjeNL62RUsbEKYQPnKnBx159awrNqVketQgoxba1J
+ L/4GPFqUklpKGhjG4Ajlq8o8Z6i+m6rLDYpCXVArMUyQfTNfTcPxBYaJb382nSyGWQxbIsn5
+ sZ544FfKPjW6sLjxNqrQvIiPcu+NucZOcfhVRSlruYT9ptJWK/hQf2lrol1OR55kUvCB8qof
+ p3r1bw8mLGQej4/QV5n4Njt/7Zi8mV3cI2QVx2+tepaAP9Fn/wCup/kKjEJKyRzu9ncS5XBo
+ pNUYxwyMvUDiiiEbo53ubgIrN8QQefp8oVBIVG7Yeje1Le38VlA007YRRn3P0rzjVviBfS3c
+ kNrEkEe7ardWx/Ku2VCc37oUW07ot6FaLaSQ3ESnyZTnawwV7YNev6Jqun2nhq6eWKBJVjOD
+ gDJxXik+tui20wybdkCvj+Fh1qGXUDrV59ne5ZbZV+VVPDH3FctWk+bU9mnW5Vdnufwq8S6X
+ cm6tbqeNwxDqG6bhnp74r5d8R3sVzr+oz2/+rluJHQexY4r0AJpunaN9os3PmF9nQjBxya8+
+ uNEfzA0dxEQ3IzxWtKHIr9DKtUU5PubnwzzLr7Z52wk/yFev6EmLSf8A66n+Qryz4c2Mmn6p
+ cTXDJtaMKCpz1I/wr1bQmBs5COhkJrLEatHFOVmylrp227+/FFQeIXOFUHqaK0pR905Wzh9Z
+ 1P8AtdWmZiVUYxyB9MVw2ptJDqLM2MqR09+9FFe7XSVNWN6as7HU+CZI7u9u7C5BZJcSLnse
+ 9dLF8OWursHS7sQSMeFcZX/61FFeRXk4zdjqi/dOWuGkhlnspHDCCZ4zjoSDg4/nV/wJNC+t
+ xW91Ek0UoZGV1yMjoR+VFFdc4r2TXkYSep2euafZ6ftlsrdY95+YLxnFa+iOY9MUHqSTRRXl
+ PWKMZtsyNal3Tge1FFFdtKK5UZM//9k=END:VCARD";
 
             vCardStandardReader reader = new vCardStandardReader();
             using (StringReader sr = new StringReader(text))
@@ -237,6 +334,17 @@ END:VCARD";
                 CheckSocialProfile(c.SocialProfiles, "tiffatfacebook", "http://www.facebook.com/tiffatfacebook", SocialProfileServiceType.Facebook);
                 CheckSocialProfile(c.SocialProfiles, "gregabedard", "http://twitter.com/gregabedard", SocialProfileServiceType.Twitter);
 
+                Assert.AreEqual(1, c.Photos.Count);
+                var photo = c.Photos.First();
+
+                Assert.IsFalse(photo.HasEncodedData, "encoded data should is true");
+                var encodedString = photo.EncodedData;
+
+                Assert.IsTrue(string.IsNullOrEmpty(encodedString), "encoded data is empty");
+
+                System.Drawing.Bitmap bitmap = photo.GetBitmap();
+
+                Assert.IsNotNull(bitmap);
 
 
                 //temp quickly

@@ -953,6 +953,10 @@ namespace Thought.vCards
                             new vCardProperty("PHOTO", photo.GetBytes()));
 
                     }
+                    else if (photo.HasEncodedData)
+                    {
+                        properties.Add(new vCardProperty("PHOTO", photo.EncodedData));
+                    }
 
                 }
                 else
@@ -1618,6 +1622,12 @@ namespace Thought.vCards
                     builder.Append(";ENCODING=BASE64:");
                     builder.Append(EncodeBase64((byte[])property.Value));
 
+                }
+                else if (property.Name.Equals("PHOTO", StringComparison.OrdinalIgnoreCase) && valueType == typeof(string))
+                {
+                    //already base64 encoded
+                    builder.Append(";ENCODING=BASE64:");
+                    builder.Append(property.Value);
                 }
                 else if (valueType == typeof(vCardValueCollection))
                 {

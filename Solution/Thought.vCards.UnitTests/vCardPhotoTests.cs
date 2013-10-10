@@ -56,6 +56,27 @@ namespace Tests
 
         #endregion
 
+        [TestMethod]
+        public void Constructor_Encoded_Data()
+        {
+           
+            vCardPhoto p = new vCardPhoto(TestPhotoUrl);
+            p.Fetch();
+            var bytes = p.GetBytes();
+
+            var base64Image = Convert.ToBase64String(bytes);
+
+            vCardPhoto photo = new vCardPhoto(base64Image, true);
+
+            Assert.IsTrue(photo.HasEncodedData, "encoded data is false");
+
+            var data = photo.EncodedData;
+
+            Assert.AreEqual(base64Image, data);
+           
+
+        }
+
         #region [ Constructor_String_Empty ]
 
         [TestMethod, ExpectedException(typeof(ArgumentNullException))]

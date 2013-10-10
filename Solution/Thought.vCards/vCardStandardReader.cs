@@ -1873,7 +1873,15 @@ namespace Thought.vCards
 			}
 			else
 			{
-				card.Photos.Add(new vCardPhoto((byte[])property.Value));
+                if (property.Value.GetType() == typeof(string))
+                {
+                    card.Photos.Add(new vCardPhoto((string)property.Value, true));
+                }
+                else
+                {
+                    card.Photos.Add(new vCardPhoto((byte[])property.Value));
+                }
+				
 			}
 		}
 
