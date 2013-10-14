@@ -2,13 +2,13 @@
 <package >
   <metadata>
     <id>Thought.vCards</id>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <authors>dublabs</authors>
     <owners>dublabs</owners>
     <licenseUrl>http://www.thoughtproject.com/Libraries/vCard/</licenseUrl>
     <projectUrl>http://www.thoughtproject.com/Libraries/vCard/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Adds base64 support for adding vCard Photo</description>
+    <description>Adds base64 support for adding vCard Photo. Mixup with 1.0.3 version deployment to nuget</description>
     <releaseNotes>Adds support to create a vCardPhoto from an existing base64 string of text. This removes the step of having to encode to a byte stream if you already have a base64 encoded image.</releaseNotes>
     <copyright>Copyright 2013</copyright>
     <tags>vCard</tags>
