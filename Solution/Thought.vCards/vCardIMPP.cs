@@ -140,7 +140,11 @@ namespace Thought.vCards
         /// <summary>
         /// qq
         /// </summary>
-        QQ
+        QQ,
+        /// <summary>
+        /// gadu gadu
+        /// </summary>
+        GaduGadu
          
 
 
@@ -166,6 +170,7 @@ namespace Thought.vCards
             lookup.Add(IMServiceType.QQ, "QQ:x-apple");
             lookup.Add(IMServiceType.Skype, "Skype:skype");
             lookup.Add(IMServiceType.Yahoo, "Yahoo:ymsgr");
+            lookup.Add(IMServiceType.GaduGadu, "GaduGadu:x-apple");
 
         }
 
@@ -293,6 +298,9 @@ namespace Thought.vCards
                     break;
                 case "yahoo":
                     serviceType = IMServiceType.Yahoo;
+                    break;
+                case "gadugadu":
+                    serviceType = IMServiceType.GaduGadu;
                     break;
             }
 
