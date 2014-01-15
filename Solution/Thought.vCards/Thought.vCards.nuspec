@@ -2,15 +2,15 @@
 <package >
   <metadata>
     <id>Thought.vCards</id>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
     <authors>dublabs</authors>
     <owners>dublabs</owners>
     <licenseUrl>http://www.thoughtproject.com/Libraries/vCard/</licenseUrl>
     <projectUrl>http://www.thoughtproject.com/Libraries/vCard/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Adds support for GaduGadu IM Type for IMPP</description>
-    <releaseNotes>Adds support for GaduGadu IM Type for IMPP.</releaseNotes>
-    <copyright>Copyright 2013</copyright>
+    <description>Adds fix for initial delivery address sub collection type being set properly</description>
+    <releaseNotes>This fix for initial delivery address makes it so that if the address type = pref and type = work, the vCard deliveryAddressType will keep both. Prior to this fix, the address type was set to default if the address collection only has one address.</releaseNotes>
+    <copyright>Copyright 2014</copyright>
     <tags>vCard</tags>
     <dependencies/>
   </metadata>

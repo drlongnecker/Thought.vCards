@@ -187,13 +187,14 @@ TITLE:Shrimp Man
 PHOTO;VALUE=URL;TYPE=GIF:http://www.example.com/dir_photos/my_photo.gif
 TEL;TYPE=WORK,VOICE:(111) 555-1212
 TEL;TYPE=HOME,VOICE:(404) 555-1212
-ADR;TYPE=WORK:;;100 Waters Edge;Baytown;LA;30314;United States of America
-LABEL;TYPE=WORK:100 Waters Edge\nBaytown, LA 30314\nUnited States of America
-ADR;TYPE=HOME:;;42 Plantation St.;Baytown;LA;30314;United States of America
-LABEL;TYPE=HOME:42 Plantation St.\nBaytown, LA 30314\nUnited States of America
+ADR;TYPE=WORK;type=pref:;;100 Waters Edge;Baytown;LA;30314;United States of America
 EMAIL;TYPE=PREF,INTERNET:forrestgump@example.com
 REV:2008-04-24T19:52:43Z
 END:VCARD";
+
+            //ADR;TYPE=HOME:;;42 Plantation St.;Baytown;LA;30314;United States of America
+//LABEL;TYPE=HOME:42 Plantation St.\nBaytown, LA 30314\nUnited States of America
+
 
             vCardStandardReader reader = new vCardStandardReader();
 
@@ -230,8 +231,27 @@ END:VCARD";
                 Assert.IsTrue(phone404.IsVoice);
                 Assert.IsTrue(phone404.IsHome);
 
+                Assert.AreEqual(1, cardFromReader.DeliveryAddresses.Count);
+                var address = cardFromReader.DeliveryAddresses.First();
+                Assert.IsNotNull(address);
+                Assert.IsTrue(address.AddressType.Any(a => a == vCardDeliveryAddressTypes.Work), "work address type not found");
+                Assert.IsTrue(address.AddressType.Any(a => a == vCardDeliveryAddressTypes.Preferred), "preferred address type not found");
+
+
+                vCardStandardWriter standardWriter = new vCardStandardWriter();
+
+                using (StringWriter sw = new StringWriter())
+                {
+                    standardWriter.Write(cardFromReader, sw);
+
+                    sw.Flush();
+                    var tempStrign =sw.ToString();
+
+                    Assert.IsNotNull(tempStrign);
+                }
 
             }
+            
 
 
             //need to add social Profile types as property to the vCard object and reader/writer
@@ -317,7 +337,7 @@ END:VCARD";
                 //phones and emails are good
                 //need to check the physical address parsing and on down
 
-                CheckAddress(c.DeliveryAddresses, "8230 Boone Blvd", "Vinna", "VA", "22182", "United States", vCardDeliveryAddressTypes.Home | vCardDeliveryAddressTypes.Preferred, true);
+                CheckAddress(c.DeliveryAddresses, "8230 Boone Blvd", "Vinna", "VA", "22182", "United States", vCardDeliveryAddressTypes.Preferred & vCardDeliveryAddressTypes.Home, true);
 
                 CheckIM(c.IMs, "skypeusernameee", IMServiceType.Skype, ItemType.HOME, true);
                 CheckIM(c.IMs, "worksyokeusername", IMServiceType.Skype, ItemType.WORK, false);
@@ -424,17 +444,17 @@ END:VCARD";
             Assert.AreEqual(country, a.Country);
 
 
-            foreach(var adr in a.AddressType)
+
+            foreach(var adr in a.AddressType.Where(x => x != vCardDeliveryAddressTypes.Preferred))
             {
-                Assert.AreEqual(addressTypes, adr, "address types are not equal");
+                
+                Assert.IsTrue(adr.HasFlag(addressTypes), "address types are not equal");
             }
             
-
-
           //  Assert.AreEqual(addressTypes, a.AddressType.);
             Assert.AreEqual(isPreferred, a.IsPreferred);
-
-
+           Assert.AreEqual(a.IsPreferred, a.AddressType.Any(x => x.HasFlag(vCardDeliveryAddressTypes.Preferred)));
+        
 
         }
 

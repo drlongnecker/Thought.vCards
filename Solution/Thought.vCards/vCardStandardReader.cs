@@ -1252,7 +1252,7 @@ namespace Thought.vCards
 			// It is possible for the TYPE subproperty to be listed multiple
 			// times (this is allowed by the RFC, although irritating that
 			// the authors allowed it).
-
+            List<vCardDeliveryAddressTypes> addressTypes = new List<vCardDeliveryAddressTypes>();
 			foreach (vCardSubproperty sub in property.Subproperties)
 			{
 
@@ -1264,12 +1264,16 @@ namespace Thought.vCards
 					(string.Compare("TYPE", sub.Name, StringComparison.OrdinalIgnoreCase) == 0))
 				{
 
-					deliveryAddress.AddressType =
-						ParseDeliveryAddressType(sub.Value.Split(new char[] { ',' }));
+                    addressTypes.AddRange(ParseDeliveryAddressType(sub.Value.Split(new char[] { ',' })));
 
 				}
 
 			}
+
+            if (addressTypes.Count != 0)
+            {
+                deliveryAddress.AddressType = addressTypes;
+            }
 
 			card.DeliveryAddresses.Add(deliveryAddress);
 
