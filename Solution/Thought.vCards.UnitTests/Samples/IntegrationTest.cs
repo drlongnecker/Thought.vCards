@@ -391,6 +391,55 @@ END:VCARD";
 
         }
 
+        [TestMethod]
+        public void ShouldReadvCardWithIMFromEmClient()
+        {
+            string vCardRequest = @"VERSION:3.0
+NAME:Aqib Talib
+N:Talib;Aqib;;;
+FN:Aqib Talib
+ADR;HOME:;;1 Aqib Way;Foxboro;MA;;United States
+EMAIL;TYPE=INTERNET;TYPE=HOME:blah@talib.com
+IMPP;X-SERVICE-TYPE;TYPE=OTHER::google:aqibtalib@gtalk.com
+IMPP:ymsgr:talibonyahoo
+IMPP:xmpp:talib_jabber
+PRODID:-//eM Client/5.0.19406.0
+REV:2014-01-15T21:02:43Z
+TEL;CELL:(362) 733-2833
+UID:D69D252D-3A87-4EC2-A438-800F0234BC54
+END:VCARD";
+
+            vCardStandardReader cardReader = new vCardStandardReader();
+
+            using (StringReader sr = new StringReader(vCardRequest))
+            {
+
+                var card = cardReader.Read(sr);
+
+
+                var im = card.IMs.FirstOrDefault(m => m.ServiceType == IMServiceType.GoogleTalk);
+
+                Assert.IsNotNull(im);
+
+                Assert.AreEqual(IMServiceType.GoogleTalk, im.ServiceType , "service type not set to google talk");
+                Assert.AreEqual("aqibtalib@gtalk.com", im.Handle);
+
+                var yahooIM = card.IMs.FirstOrDefault(m => m.ServiceType == IMServiceType.Yahoo);
+                Assert.IsNotNull(yahooIM);
+                Assert.AreEqual(IMServiceType.Yahoo, yahooIM.ServiceType, "serviceType not set for yahoo");
+                Assert.AreEqual("talibonyahoo", yahooIM.Handle);
+
+
+                var jabberIM = card.IMs.FirstOrDefault(m => m.ServiceType == IMServiceType.Jabber);
+                Assert.IsNotNull(jabberIM);
+                Assert.AreEqual(IMServiceType.Jabber, jabberIM.ServiceType, "serviceType not set for jabber");
+                Assert.AreEqual("talib_jabber", jabberIM.Handle);
+
+            }
+
+
+        }
+
         private void CheckSocialProfile(vCardSocialProfileCollection sps, string username, string url, SocialProfileServiceType serviceType)
         {
             if (sps == null || sps.Count == 0)

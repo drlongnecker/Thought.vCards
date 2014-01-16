@@ -279,12 +279,14 @@ namespace Thought.vCards
                     serviceType = IMServiceType.Facebook;
                     break;
                 case "googletalk":
+                case "google":
                     serviceType = IMServiceType.GoogleTalk;
                     break;
                 case "icq":
                     serviceType = IMServiceType.ICQ;
                     break;
                 case "jabber":
+                case "xmpp":
                     serviceType = IMServiceType.Jabber;
                     break;
                 case "msn":
@@ -297,9 +299,11 @@ namespace Thought.vCards
                     serviceType = IMServiceType.Skype;
                     break;
                 case "yahoo":
+                case "ymsgr":
                     serviceType = IMServiceType.Yahoo;
                     break;
                 case "gadugadu":
+                case "gadu":
                     serviceType = IMServiceType.GaduGadu;
                     break;
             }

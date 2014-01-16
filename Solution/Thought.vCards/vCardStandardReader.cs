@@ -145,17 +145,17 @@ namespace Thought.vCards
 		/// <returns></returns>
 		public static ItemType? DecodeItemType(string keyword)
 		{
-			   if (string.IsNullOrEmpty(keyword))
+			if (string.IsNullOrEmpty(keyword))
 				return null;
 
 			switch (keyword.ToUpperInvariant())
 			{
 				case "HOME":
 					return ItemType.HOME;
-		
+
 				case "WORK":
 					return ItemType.WORK;
-	 
+
 				default:
 					return null;
 			}
@@ -688,7 +688,7 @@ namespace Thought.vCards
 				parsed = DateTime.SpecifyKind(parsed, DateTimeKind.Utc);
 				return parsed;
 			}
-				
+
 
 			// Outlook generates a revision date like this:
 			//
@@ -1042,7 +1042,7 @@ namespace Thought.vCards
 				propNameToProcess = propNameToProcess.Replace(match.Value, string.Empty);
 			}
 
-			 
+
 
 			switch (propNameToProcess)
 			{
@@ -1252,7 +1252,7 @@ namespace Thought.vCards
 			// It is possible for the TYPE subproperty to be listed multiple
 			// times (this is allowed by the RFC, although irritating that
 			// the authors allowed it).
-            List<vCardDeliveryAddressTypes> addressTypes = new List<vCardDeliveryAddressTypes>();
+			List<vCardDeliveryAddressTypes> addressTypes = new List<vCardDeliveryAddressTypes>();
 			foreach (vCardSubproperty sub in property.Subproperties)
 			{
 
@@ -1264,16 +1264,16 @@ namespace Thought.vCards
 					(string.Compare("TYPE", sub.Name, StringComparison.OrdinalIgnoreCase) == 0))
 				{
 
-                    addressTypes.AddRange(ParseDeliveryAddressType(sub.Value.Split(new char[] { ',' })));
+					addressTypes.AddRange(ParseDeliveryAddressType(sub.Value.Split(new char[] { ',' })));
 
 				}
 
 			}
 
-            if (addressTypes.Count != 0)
-            {
-                deliveryAddress.AddressType = addressTypes;
-            }
+			if (addressTypes.Count != 0)
+			{
+				deliveryAddress.AddressType = addressTypes;
+			}
 
 			card.DeliveryAddresses.Add(deliveryAddress);
 
@@ -1521,6 +1521,34 @@ namespace Thought.vCards
 
 		#endregion
 
+        private vCardIMPP ParseFullIMHandleString(string fullIMHandle)
+        {
+            var im = new vCardIMPP();
+            string[] parsedTypeValues = fullIMHandle.Split(new char[] { ':' });
+            if (parsedTypeValues.Length > 1)
+            {
+                var typeValueToCheck = parsedTypeValues[0];
+
+                if (string.IsNullOrEmpty(typeValueToCheck))
+                {
+                    typeValueToCheck = parsedTypeValues[1];
+                }
+
+                if (fullIMHandle.StartsWith(":"))
+                {
+                    fullIMHandle = fullIMHandle.Substring(1);
+                }
+                string directHandle = parsedTypeValues[parsedTypeValues.Length - 1];
+
+                //need to switch to this => GoogleTalk:xmpp:gtalkname
+                im.ServiceType = IMTypeUtils.GetIMServiceType(typeValueToCheck).Value;
+                im.Handle = directHandle;
+                
+            }
+
+            return im;
+        }
+
 		private void ReadInto_IMPP(vCard card, vCardProperty property)
 		{
 
@@ -1534,6 +1562,11 @@ namespace Thought.vCards
 			im.Handle = property.ToString();
 			if (string.IsNullOrEmpty(im.Handle))
 				return;
+
+            if (property.Subproperties.Count == 0)
+            {
+                im = ParseFullIMHandleString(im.Handle);
+            }
 
 			foreach (vCardSubproperty subproperty in property.Subproperties)
 			{
@@ -1556,42 +1589,52 @@ namespace Thought.vCards
 						// It identifies the type and can also indicate
 						// the PREF attribute.
 
-						string[] typeValues =
-							subproperty.Value.Split(new char[] { ',' });
-
-						foreach (string typeValue in typeValues)
+						if (subproperty.Value != null)
 						{
-							if (string.Compare("PREF", typeValue, StringComparison.OrdinalIgnoreCase) == 0)
-							{
-								im.IsPreferred = true;
-							}
-							else
-							{
+							string[] typeValues = subproperty.Value.Split(new char[] { ',' });
 
-								IMServiceType? imServiceType= IMTypeUtils.GetIMServiceType(typeValue);
+							foreach (string typeValue in typeValues)
+							{
+								string typeValueToCheck = typeValue;
 
-								if (imServiceType.HasValue)
+								if (string.Compare("PREF", typeValueToCheck, StringComparison.OrdinalIgnoreCase) == 0)
 								{
-									im.ServiceType = imServiceType.Value;
-
-									//fix handle
-									im.Handle = IMTypeUtils.StripHandlePrefix(im.ServiceType, im.Handle);
-
+									im.IsPreferred = true;
 								}
 								else
 								{
-									ItemType? itemType = DecodeItemType(typeValue);
-
-									if (itemType.HasValue)
+									//parsing from em-Client version of supplying IM's
+									//:google:aqibtalib@gtalk.com
+									if (im.Handle != null && typeValueToCheck == "OTHER")
 									{
-										im.ItemType = itemType.Value;
+                                        im = ParseFullIMHandleString(im.Handle);
+
+                                        break;
 									}
 
-								}
-  
-							}
+									IMServiceType? imServiceType = IMTypeUtils.GetIMServiceType(typeValueToCheck);
 
+									if (imServiceType.HasValue)
+									{
+										im.ServiceType = imServiceType.Value;
+
+										//fix handle
+										im.Handle = IMTypeUtils.StripHandlePrefix(im.ServiceType, im.Handle);
+
+									}
+									else
+									{
+										ItemType? itemType = DecodeItemType(typeValueToCheck);
+
+										if (itemType.HasValue)
+										{
+											im.ItemType = itemType.Value;
+										}
+									}
+								}
+							}
 						}
+
 						break;
 
 				}
@@ -1599,7 +1642,7 @@ namespace Thought.vCards
 			}
 
 			card.IMs.Add(im);
-			 
+
 		}
 
 
@@ -1842,7 +1885,7 @@ namespace Thought.vCards
 
 			if (card.Organization != null && card.Organization.EndsWith(";"))
 			{
-			   card.Organization = card.Organization.TrimEnd(Convert.ToChar(";"));
+				card.Organization = card.Organization.TrimEnd(Convert.ToChar(";"));
 			}
 
 		}
@@ -1877,15 +1920,15 @@ namespace Thought.vCards
 			}
 			else
 			{
-                if (property.Value.GetType() == typeof(string))
-                {
-                    card.Photos.Add(new vCardPhoto((string)property.Value, true));
-                }
-                else
-                {
-                    card.Photos.Add(new vCardPhoto((byte[])property.Value));
-                }
-				
+				if (property.Value.GetType() == typeof(string))
+				{
+					card.Photos.Add(new vCardPhoto((string)property.Value, true));
+				}
+				else
+				{
+					card.Photos.Add(new vCardPhoto((byte[])property.Value));
+				}
+
 			}
 		}
 
@@ -2103,7 +2146,7 @@ namespace Thought.vCards
 		{
 
 			vCardSocialProfile sp = new vCardSocialProfile();
- 
+
 
 			sp.ProfileUrl = property.ToString();
 			if (string.IsNullOrEmpty(sp.ProfileUrl))
@@ -2122,7 +2165,7 @@ namespace Thought.vCards
 						break;
 
 					case "TYPE":
-			  
+
 
 						string[] typeValues =
 							subproperty.Value.Split(new char[] { ',' });
@@ -2133,15 +2176,15 @@ namespace Thought.vCards
 							SocialProfileServiceType? profileType = SocialProfileTypeUtils.GetSocialProfileServiceType(typeValue);
 
 
-								if (profileType.HasValue)
-								{
-									sp.ServiceType = profileType.Value;
+							if (profileType.HasValue)
+							{
+								sp.ServiceType = profileType.Value;
 
 
-								}
- 
+							}
 
-				 
+
+
 
 						}
 						break;

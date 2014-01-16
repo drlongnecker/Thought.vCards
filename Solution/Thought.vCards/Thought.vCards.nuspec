@@ -2,14 +2,14 @@
 <package >
   <metadata>
     <id>Thought.vCards</id>
-    <version>1.0.6</version>
+    <version>1.0.7</version>
     <authors>dublabs</authors>
     <owners>dublabs</owners>
     <licenseUrl>http://www.thoughtproject.com/Libraries/vCard/</licenseUrl>
     <projectUrl>http://www.thoughtproject.com/Libraries/vCard/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Adds fix for initial delivery address sub collection type being set properly</description>
-    <releaseNotes>This fix for initial delivery address makes it so that if the address type = pref and type = work, the vCard deliveryAddressType will keep both. Prior to this fix, the address type was set to default if the address collection only has one address.</releaseNotes>
+    <description>Adds fix for IMPP handling which mirrors the em Client style. Output still defaults to the iOS flavored IMPP style</description>
+    <releaseNotes>EM Client outputs vcard 4.0 style IMPP:aim:handle. This fix means it will parse correctly coming in, but writing will still default to the iOS style. em Client can still handle the iOS style coming in.</releaseNotes>
     <copyright>Copyright 2014</copyright>
     <tags>vCard</tags>
     <dependencies/>
