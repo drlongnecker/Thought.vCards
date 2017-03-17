@@ -102,6 +102,12 @@ namespace Thought.vCards
         }
 
 
+        /// <summary>
+        ///  Creates a new vCard photo from an image file.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="isEncoded"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public vCardPhoto(string data, bool isEncoded)
         {
 
@@ -272,6 +278,9 @@ namespace Thought.vCards
             }
         }
 
+        /// <summary>
+        /// Encoded Data in base64
+        /// </summary>
         public string EncodedData
         {
             get

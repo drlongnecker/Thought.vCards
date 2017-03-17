@@ -371,9 +371,10 @@ namespace Thought.vCards
 
             if (card.BirthDate.HasValue)
             {
+                var bDayString = card.BirthDate.Value.ToString("yyyyMMdd");
 
                 vCardProperty property =
-                    new vCardProperty("BDAY", card.BirthDate.Value);
+                    new vCardProperty("BDAY", bDayString);
 
                 properties.Add(property);
             }

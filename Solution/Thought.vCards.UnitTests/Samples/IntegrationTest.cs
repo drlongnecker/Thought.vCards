@@ -110,6 +110,41 @@ namespace Tests.Samples
         }
 
         [TestMethod]
+        public void SamplevCardReadAndWriteTestWithBirthdayFormat()
+        {
+            vCard card = new vCard();
+
+            var birthDate = new DateTime(2007,07,23);
+            card.BirthDate = birthDate;
+            card.UniqueId = Guid.NewGuid().ToString("N");
+
+            string text = card.ToString();
+
+            vCardStandardWriter writer = new vCardStandardWriter();
+
+            using (StringWriter sw = new StringWriter())
+            {
+                writer.Write(card, sw);
+                sw.Flush();
+                text = sw.ToString();
+                sw.Close();
+            }
+            
+            Assert.IsNotNull(text);
+            Assert.IsTrue(text.Contains("BDAY:20070723"));
+
+            vCardStandardReader reader = new vCardStandardReader();
+
+            using (StringReader sr = new StringReader(text))
+            {
+                vCard cardFromReader = reader.Read(sr);
+                Assert.IsNotNull(cardFromReader.BirthDate.Value);
+                Assert.AreEqual(birthDate.Date, cardFromReader.BirthDate.Value.Date);
+            }
+        }
+
+
+        [TestMethod]
         public void SamplevCardReadAndWriteTestWithPhotos()
         {
             string base64Photo = @"/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQY
