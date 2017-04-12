@@ -40,7 +40,7 @@ namespace Thought.vCards
 
         private vCardAccessClassification accessClassification;
         private string additionalNames;
-        private DateTime? birthDate;
+        private string birthDate;
         private StringCollection categories;
         private string department;
         private string displayName;
@@ -101,6 +101,7 @@ namespace Thought.vCards
             this.timeZone = string.Empty;
             this.title = string.Empty;
             this.uniqueId = string.Empty;
+            this.birthDate = string.Empty;
 
             this.categories = new StringCollection();
             this.certificates = new vCardCertificateCollection();
@@ -194,11 +195,11 @@ namespace Thought.vCards
         /// <summary>
         ///     The birthdate of the person.
         /// </summary>
-        public DateTime? BirthDate
+        public string BirthDate
         {
             get
             {
-                return this.birthDate;
+                return this.birthDate ?? string.Empty;
             }
             set
             {

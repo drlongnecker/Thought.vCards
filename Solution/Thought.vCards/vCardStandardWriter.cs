@@ -369,12 +369,10 @@ namespace Thought.vCards
             // of the person.  The output format here is based on
             // Microsoft Outlook, which writes the date as YYYMMDD.
 
-            if (card.BirthDate.HasValue)
+            if ( ! string.IsNullOrEmpty(card.BirthDate))
             {
-                var bDayString = card.BirthDate.Value.ToString("yyyyMMdd");
-
                 vCardProperty property =
-                    new vCardProperty("BDAY", bDayString);
+                    new vCardProperty("BDAY", card.BirthDate);
 
                 properties.Add(property);
             }

@@ -47,18 +47,18 @@ namespace Tests
         {
 
             vCard card = new vCard();
-            card.BirthDate = DateTime.Parse("04/04/04");
+            card.BirthDate = "04/04/04";
 
             Assert.AreEqual(
-                DateTime.Parse("04/04/04"),
-                card.BirthDate.Value,
+                "04/04/04",
+                card.BirthDate,
                 "The BirthDate property was not set.");
 
             card.BirthDate = null;
 
-            Assert.IsNull(
+            Assert.IsEmpty(
                 card.BirthDate,
-                "The BirthDate property was not set to null.");
+                "The BirthDate property was not set to Empty.");
 
         }
 

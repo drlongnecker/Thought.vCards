@@ -114,7 +114,7 @@ namespace Tests.Samples
         {
             vCard card = new vCard();
 
-            var birthDate = new DateTime(2007,07,23);
+            var birthDate = "2007-07-23";
             card.BirthDate = birthDate;
             card.UniqueId = Guid.NewGuid().ToString("N");
 
@@ -131,15 +131,118 @@ namespace Tests.Samples
             }
             
             Assert.IsNotNull(text);
-            Assert.IsTrue(text.Contains("BDAY:20070723"));
+            Assert.IsTrue(text.Contains("BDAY:2007-07-23"));
 
             vCardStandardReader reader = new vCardStandardReader();
 
             using (StringReader sr = new StringReader(text))
             {
                 vCard cardFromReader = reader.Read(sr);
-                Assert.IsNotNull(cardFromReader.BirthDate.Value);
-                Assert.AreEqual(birthDate.Date, cardFromReader.BirthDate.Value.Date);
+                Assert.IsFalse( string.IsNullOrWhiteSpace(cardFromReader.BirthDate));
+                Assert.AreEqual(birthDate, cardFromReader.BirthDate);
+            }
+        }
+
+        [TestMethod]
+        public void SamplevCardReadAndWriteTestWithBirthdayFormatRFC_LongFormat()
+        {
+            vCard card = new vCard();
+
+            var birthDate = "19961022T140000";
+            card.BirthDate = birthDate;
+            card.UniqueId = Guid.NewGuid().ToString("N");
+
+            string text = card.ToString();
+
+            vCardStandardWriter writer = new vCardStandardWriter();
+
+            using (StringWriter sw = new StringWriter())
+            {
+                writer.Write(card, sw);
+                sw.Flush();
+                text = sw.ToString();
+                sw.Close();
+            }
+            
+            Assert.IsNotNull(text);
+            Assert.IsTrue(text.Contains("BDAY:19961022T140000"));
+
+            vCardStandardReader reader = new vCardStandardReader();
+
+            using (StringReader sr = new StringReader(text))
+            {
+                vCard cardFromReader = reader.Read(sr);
+                Assert.IsFalse( string.IsNullOrWhiteSpace(cardFromReader.BirthDate));
+                Assert.AreEqual(birthDate, cardFromReader.BirthDate);
+            }
+        }
+
+        [TestMethod]
+        public void SamplevCardReadAndWriteTestWithBirthdayFormatRFC_ShortFormat()
+        {
+            vCard card = new vCard();
+
+            var birthDate = "--0731";
+            card.BirthDate = birthDate;
+            card.UniqueId = Guid.NewGuid().ToString("N");
+
+            string text = card.ToString();
+
+            vCardStandardWriter writer = new vCardStandardWriter();
+
+            using (StringWriter sw = new StringWriter())
+            {
+                writer.Write(card, sw);
+                sw.Flush();
+                text = sw.ToString();
+                sw.Close();
+            }
+            
+            Assert.IsNotNull(text);
+            Assert.IsTrue(text.Contains("BDAY:--0731"));
+
+            vCardStandardReader reader = new vCardStandardReader();
+
+            using (StringReader sr = new StringReader(text))
+            {
+                vCard cardFromReader = reader.Read(sr);
+                Assert.IsFalse( string.IsNullOrWhiteSpace(cardFromReader.BirthDate));
+                Assert.AreEqual(birthDate, cardFromReader.BirthDate);
+            }
+        }
+
+        [TestMethod]
+        public void SamplevCardReadAndWriteTestWithBirthdayFormatNotRFCFormat()
+        {
+            vCard card = new vCard();
+
+            var birthDate = "01/15/2011";
+            var rfcBirthDate = "20110115";
+            card.BirthDate = birthDate;
+            card.UniqueId = Guid.NewGuid().ToString("N");
+
+            string text = card.ToString();
+
+            vCardStandardWriter writer = new vCardStandardWriter();
+
+            using (StringWriter sw = new StringWriter())
+            {
+                writer.Write(card, sw);
+                sw.Flush();
+                text = sw.ToString();
+                sw.Close();
+            }
+            
+            Assert.IsNotNull(text);
+            Assert.IsTrue(text.Contains("BDAY:01/15/2011"));
+
+            vCardStandardReader reader = new vCardStandardReader();
+
+            using (StringReader sr = new StringReader(text))
+            {
+                vCard cardFromReader = reader.Read(sr);
+                Assert.IsFalse( string.IsNullOrWhiteSpace(cardFromReader.BirthDate));
+                Assert.AreEqual(rfcBirthDate, cardFromReader.BirthDate);
             }
         }
 

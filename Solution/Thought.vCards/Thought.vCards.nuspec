@@ -2,13 +2,13 @@
 <package >
   <metadata>
     <id>Thought.vCards</id>
-    <version>1.0.8</version>
+    <version>1.0.9</version>
     <authors>dublabs</authors>
     <owners>dublabs</owners>
     <licenseUrl>http://www.thoughtproject.com/Libraries/vCard/</licenseUrl>
     <projectUrl>http://www.thoughtproject.com/Libraries/vCard/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Adds fix for BDAY format, now the date format is compliant with https://tools.ietf.org/html/rfc6350#section-4.3.4</description>
+    <description>Change the type of BDAY property to string, to support "month-day" dates</description>
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2014</copyright>
     <tags>vCard</tags>

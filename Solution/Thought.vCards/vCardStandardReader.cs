@@ -1290,31 +1290,27 @@ namespace Thought.vCards
 		{
 
 			DateTime bday;
-			if (DateTime.TryParse(property.ToString(), out bday))
-			{
-				card.BirthDate = bday;
-			}
-			else
-			{
+            var rfcDateFormats = new[] { "--MMdd", "--MM-dd", "yyyy-MM", "yyyy-MM-dd", "yyyyMMdd", // --> shortDate format
+                                         "o", "s", // --> standar format
+                                          "yyyy-MM-ddTHH:mm:ssZ", "yyyy-MM-ddTHHmmssZ", "yyyy-MM-ddTHH:mm:sszzz", "yyyy-MM-ddTHHmmsszzz" ,"yyyy-MM-ddTHH:mm:ss", "yyyy-MM-ddTHHmmss", // custom format 
+                                          "yyyyMMddTHH:mm:ssZ", "yyyyMMddTHHmmssZ", "yyyyMMddTHH:mm:sszzz", "yyyyMMddTHHmmsszzz", "yyyyMMddTHH:mm:ss", "yyyyMMddTHHmmss"  // custom format
+                                       };
 
-				// Microsoft Outlook writes the birthdate in YYYYMMDD, e.g. 20091015
-				// for October 15, 2009.
-
-				if (DateTime.TryParseExact(
-					property.ToString(),
-					"yyyyMMdd",
-					CultureInfo.InvariantCulture,
-					DateTimeStyles.None,
-					out bday))
-				{
-					card.BirthDate = bday;
-				}
-				else
-				{
-					card.BirthDate = null;
-				}
-			}
-
+            var dateAsString = property.ToString();
+            if (DateTime.TryParseExact(dateAsString, rfcDateFormats, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out bday))
+            {
+                card.BirthDate = dateAsString;
+            }
+            else if (DateTime.TryParse(property.ToString(), out bday))
+            {
+                // we are supporting other dates format, however we are storing an RFC6350 comatible format
+                card.BirthDate = bday.ToString("yyyyMMdd");
+            }
+            else
+            {
+                card.BirthDate = string.Empty;
+            }
+			
 		}
 
 		#endregion
