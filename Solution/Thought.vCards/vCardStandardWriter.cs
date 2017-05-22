@@ -22,7 +22,7 @@ namespace Thought.vCards
         private bool embedLocalImages;
         private vCardStandardWriterOptions options;
         private string productId;
-
+        private const string TYPE = "TYPE";
 
         /// <summary>
         ///     The characters that are escaped per the original
@@ -156,7 +156,7 @@ namespace Thought.vCards
             // See section 2.1.1 of RFC 2426.
 
             properties.Add(new vCardProperty("BEGIN", "VCARD"));
-
+            properties.Add(new vCardProperty("VERSION", "3.0"));
             BuildProperties_NAME(
                 properties,
                 card);
@@ -196,6 +196,8 @@ namespace Thought.vCards
             BuildProperties_GEO(
                 properties,
                 card);
+
+            BuildProperties_IMPP(properties, card);
 
             BuildProperties_KEY(
                 properties,
@@ -256,6 +258,8 @@ namespace Thought.vCards
             BuildProperties_URL(
                 properties,
                 card);
+
+            BuildProperties_XSOCIALPROFILE(properties, card);
 
             BuildProperties_X_WAB_GENDER(
                 properties,
@@ -336,6 +340,11 @@ namespace Thought.vCards
                     if (address.IsWork)
                         property.Subproperties.Add("WORK");
 
+                    if (address.IsPreferred)
+                    {
+                        property.Subproperties.Add("PREF");
+                    }
+
                     properties.Add(property);
 
                 }
@@ -360,11 +369,10 @@ namespace Thought.vCards
             // of the person.  The output format here is based on
             // Microsoft Outlook, which writes the date as YYYMMDD.
 
-            if (card.BirthDate.HasValue)
+            if ( ! string.IsNullOrEmpty(card.BirthDate))
             {
-
                 vCardProperty property =
-                    new vCardProperty("BDAY", card.BirthDate.Value);
+                    new vCardProperty("BDAY", card.BirthDate);
 
                 properties.Add(property);
             }
@@ -467,14 +475,14 @@ namespace Thought.vCards
 
                 if (emailAddress.IsPreferred)
                 {
-                    property.Subproperties.Add("PREF");
+                    property.Subproperties.Add(TYPE, "PREF");
                 }
 
                 switch (emailAddress.EmailType)
                 {
 
                     case vCardEmailAddressType.Internet:
-                        property.Subproperties.Add("INTERNET");
+                        property.Subproperties.Add(TYPE, "INTERNET");
                         break;
 
                     case vCardEmailAddressType.AOL:
@@ -486,7 +494,7 @@ namespace Thought.vCards
                         break;
 
                     case vCardEmailAddressType.AttMail:
-                        property.Subproperties.Add("ATTMail");
+                        property.Subproperties.Add(TYPE, "ATTMail");
                         break;
 
                     case vCardEmailAddressType.CompuServe:
@@ -522,9 +530,26 @@ namespace Thought.vCards
                         break;
 
                     default:
-                        property.Subproperties.Add("INTERNET");
+                        property.Subproperties.Add(TYPE, "INTERNET");
                         break;
 
+                }
+
+                switch (emailAddress.ItemType)
+                {
+                    case ItemType.UNSPECIFIED:
+                        //do nothing
+                        break;
+                    case ItemType.HOME:
+                        property.Subproperties.Add(TYPE, ItemType.HOME.ToString());
+                        break;
+                    case ItemType.WORK:
+                        property.Subproperties.Add(TYPE, ItemType.WORK.ToString());
+                        break;
+
+                    default:
+
+                        break;
                 }
 
                 properties.Add(property);
@@ -589,6 +614,58 @@ namespace Thought.vCards
         }
 
         #endregion
+
+
+        private void BuildProperties_IMPP(vCardPropertyCollection properties, vCard card)
+        {
+
+            // adding support for IMPP (IM handles) in the vCard
+            //iOS outputs this => IMPP;X-SERVICE-TYPE=Skype;type=HOME;type=pref:skype:skypeusernameee
+
+
+
+            foreach (var im in card.IMs)
+            {
+
+                vCardProperty property = new vCardProperty();
+                property.Name = "IMPP";
+
+
+                string subProperty = IMTypeUtils.GetIMTypePropertyFull(im.ServiceType);
+                string prefix = IMTypeUtils.GetIMTypePropertyPrefix(im.ServiceType);
+                string suffix = IMTypeUtils.GetIMTypePropertySuffix(im.ServiceType);
+
+                property.Subproperties.Add("X-SERVICE-TYPE", prefix);
+                property.Value = string.Concat(suffix, ":", im.Handle);
+
+
+                if (im.IsPreferred)
+                {
+                    property.Subproperties.Add(TYPE, "PREF");
+                }
+
+                switch (im.ItemType)
+                {
+
+                    case ItemType.HOME:
+                        property.Subproperties.Add(TYPE, ItemType.HOME.ToString());
+                        break;
+                    case ItemType.WORK:
+                        property.Subproperties.Add(TYPE, ItemType.WORK.ToString());
+                        break;
+
+                    case ItemType.UNSPECIFIED:
+                    default:
+                        property.Subproperties.Add(TYPE, "OTHER");
+                        break;
+                }
+
+                properties.Add(property);
+
+            }
+
+        }
+
 
         #region [ BuildProperties_KEY ]
 
@@ -875,6 +952,10 @@ namespace Thought.vCards
                             new vCardProperty("PHOTO", photo.GetBytes()));
 
                     }
+                    else if (photo.HasEncodedData)
+                    {
+                        properties.Add(new vCardProperty("PHOTO", photo.EncodedData));
+                    }
 
                 }
                 else
@@ -975,7 +1056,7 @@ namespace Thought.vCards
             {
 
                 vCardProperty property =
-                    new vCardProperty("REV", card.RevisionDate.Value.ToString());
+                    new vCardProperty("REV", card.RevisionDate.Value.ToString("s") + "Z");
 
                 properties.Add(property);
 
@@ -1110,6 +1191,15 @@ namespace Thought.vCards
                 if (phone.IsWork)
                     property.Subproperties.Add("WORK");
 
+                if (phone.IsiPhone)
+                {
+                    property.Subproperties.Add("IPHONE");
+                }
+                if (phone.IsMain)
+                {
+                    property.Subproperties.Add("MAIN");
+                }
+
                 property.Value = phone.FullNumber;
                 properties.Add(property);
 
@@ -1205,6 +1295,32 @@ namespace Thought.vCards
         }
 
         #endregion
+
+
+        private void BuildProperties_XSOCIALPROFILE(vCardPropertyCollection properties, vCard card)
+        {
+
+            // adding support for X-SOCIALPROFILE) in the vCard
+
+
+            foreach (var sp in card.SocialProfiles)
+            {
+
+                vCardProperty property = new vCardProperty();
+                property.Name = "X-SOCIALPROFILE";
+
+                string propertyType = SocialProfileTypeUtils.GetSocialProfileServicePropertyType(sp.ServiceType);
+
+                property.Subproperties.Add("TYPE", propertyType);
+                property.Subproperties.Add("X-USER", sp.Username);
+                property.Value = sp.ProfileUrl;
+
+                properties.Add(property);
+
+            }
+
+        }
+
 
         #region [ BuildProperties_X_WAB_GENDER ]
 
@@ -1505,6 +1621,12 @@ namespace Thought.vCards
                     builder.Append(";ENCODING=BASE64:");
                     builder.Append(EncodeBase64((byte[])property.Value));
 
+                }
+                else if (property.Name.Equals("PHOTO", StringComparison.OrdinalIgnoreCase) && valueType == typeof(string))
+                {
+                    //already base64 encoded
+                    builder.Append(";ENCODING=BASE64:");
+                    builder.Append(property.Value);
                 }
                 else if (valueType == typeof(vCardValueCollection))
                 {

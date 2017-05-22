@@ -1,13 +1,14 @@
 
 using System;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Thought.vCards;
+using Assert = NUnit.Framework.Assert;
 
 namespace Tests
 {
 
-    [TestFixture]
-    public class vCardStandardReaderTests
+    [TestClass]
+    public sealed class vCardStandardReaderTests : IDisposable
     {
 
         private const string TestName = "NAME";
@@ -15,7 +16,7 @@ namespace Tests
 
         #region [ DecodeEscaped_Comma ]
 
-        [Test]
+        [TestMethod]
         public void DecodeEscaped_Comma()
         {
 
@@ -30,7 +31,7 @@ namespace Tests
 
         #region [ DecodeEscaped_Comma_SlashComma ]
 
-        [Test]
+        [TestMethod]
         public void DecodeEscaped_Comma_SlashComma()
         {
 
@@ -47,7 +48,7 @@ namespace Tests
 
         #region [ DecodeEscaped_Comma_SlashComma_Comma ]
 
-        [Test]
+        [TestMethod]
         public void DecodeEscaped_Comma_SlashComma_Comma()
         {
 
@@ -64,7 +65,7 @@ namespace Tests
 
         #region [ DecodeEscaped_Empty ]
 
-        [Test]
+        [TestMethod]
         public void DecodeEscaped_Empty()
         {
             Assert.IsEmpty(
@@ -75,7 +76,7 @@ namespace Tests
 
         #region [ DecodeEscaped_SlashComma ]
 
-        [Test]
+        [TestMethod]
         public void DecodeEscaped_SlashComma()
         {
             Assert.AreEqual(
@@ -87,7 +88,7 @@ namespace Tests
 
         #region [ DecodeEscaped_Null ]
 
-        [Test]
+        [TestMethod]
         public void DecodeEscaped_Null()
         {
             Assert.IsNull(
@@ -96,7 +97,7 @@ namespace Tests
 
         #endregion
 
-        [Test]
+        [TestMethod]
         public void DecodeEscaped_Sample()
         {
 
@@ -115,7 +116,7 @@ namespace Tests
 
         #region [ DecodeHexadecimal ]
 
-        [Test]
+        [TestMethod]
         public void DecodeHexadecimal()
         {
 
@@ -195,7 +196,7 @@ namespace Tests
 
         #region [ DecodeHexadecimal_BadCharacter ]
 
-        [Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void DecodeHexadecimal_BadCharacter()
         {
             vCardStandardReader.DecodeHexadecimal('V');
@@ -205,7 +206,7 @@ namespace Tests
 
         #region [ DecodeQuotedPrintable_Empty ]
 
-        [Test]
+        [TestMethod]
         public void DecodeQuotedPrintable_Empty()
         {
 
@@ -219,7 +220,7 @@ namespace Tests
 
         #region [ DecodeQuotedPrintable_EqualSign_EqualSign ]
 
-        [Test]
+        [TestMethod]
         public void DecodeQuotedPrintable_EqualSign_EqualSign()
         {
 
@@ -234,7 +235,7 @@ namespace Tests
 
         #region [ DecodeQuotedPrintable_EqualSign_MoreLines ]
 
-        [Test]
+        [TestMethod]
         public void DecodeQuotedPrintable_EqualSign_MoreLines()
         {
 
@@ -254,7 +255,7 @@ namespace Tests
 
         #region [ DecodeQuotedPrintable_EqualSign_NoMoreLines ]
 
-        [Test]
+        [TestMethod]
         public void DecodeQuotedPrintable_EqualSign_NoMoreLines()
         {
 
@@ -276,7 +277,7 @@ namespace Tests
 
         #region [ DecodeQuotedPrintable_EqualSign_ValidEscapeCode ]
 
-        [Test]
+        [TestMethod]
         public void DecodeQuotedPrintable_EqualSign_ValidEscapeCode()
         {
 
@@ -296,7 +297,7 @@ namespace Tests
 
         #region [ DecodeQuotedPrintable_IncompleteEscapeCode ]
 
-        [Test]
+        [TestMethod]
         public void DecodeQuotedPrintable_IncompleteEscapeCode()
         {
 
@@ -311,7 +312,7 @@ namespace Tests
 
         #region [ DecodeQuotedPrintable_InvalidEscapeCode ]
 
-        [Test]
+        [TestMethod]
         public void DecodeQuotedPrintable_InvalidEscapeCode()
         {
 
@@ -326,7 +327,7 @@ namespace Tests
 
         #region [ DecodeQuotedPrintable_Null ]
 
-        [Test]
+        [TestMethod]
         public void DecodeQuotedPrintable_Null()
         {
 
@@ -340,7 +341,7 @@ namespace Tests
 
         #region [ ReadProperty_String_EmptyParameter ]
 
-        [Test, ExpectedException(typeof(ArgumentNullException))]
+        [TestMethod, ExpectedException(typeof(ArgumentNullException))]
         public void ReadProperty_String_EmptyParameter()
         {
             vCardStandardReader reader = new vCardStandardReader();
@@ -351,7 +352,7 @@ namespace Tests
 
         #region [ ReadProperty_String_MissingName ]
 
-        [Test]
+        [TestMethod]
         public void ReadProperty_String_MissingName()
         {
             vCardStandardReader reader = new vCardStandardReader();
@@ -368,7 +369,7 @@ namespace Tests
 
         #region [ ReadProperty_String_MissingColon ]
 
-        [Test]
+        [TestMethod]
         public void ReadProperty_String_MissingColon()
         {
 
@@ -386,7 +387,7 @@ namespace Tests
 
         #region [ ReadProperty_String_NullParameter ]
 
-        [Test, ExpectedException(typeof(ArgumentNullException))]
+        [TestMethod, ExpectedException(typeof(ArgumentNullException))]
         public void ReadProperty_String_NullParameter()
         {
             vCardStandardReader reader = new vCardStandardReader();
@@ -397,7 +398,7 @@ namespace Tests
 
         #region [ ReadProperty_String_QuotedPrintable ]
 
-        [Test]
+        [TestMethod]
         public void ReadProperty_String_QuotedPrintable()
         {
 
@@ -446,7 +447,7 @@ namespace Tests
 
         #region [ ReadProperty_String_SingleColon ]
 
-        [Test]
+        [TestMethod]
         public void ReadProperty_String_SingleColon()
         {
             vCardStandardReader reader = new vCardStandardReader();
@@ -463,7 +464,7 @@ namespace Tests
 
         #region [ ReadProperty_String_Whitespace ]
 
-        [Test]
+        [TestMethod]
         public void ReadProperty_String_Whitespace()
         {
             vCardStandardReader reader = new vCardStandardReader();
@@ -480,7 +481,7 @@ namespace Tests
 
         #region [ ReadProperty_String_Name_Value ]
 
-        [Test]
+        [TestMethod]
         public void ReadProperty_String_Name_Value()
         {
 
@@ -511,7 +512,7 @@ namespace Tests
 
         #region [ ReadProperty_String_Name_Subproperties_Value ]
 
-        [Test]
+        [TestMethod]
         public void ReadProperty_String_Name_Subproperties_Value()
         {
 
@@ -555,7 +556,7 @@ namespace Tests
 
         #region [ ReadProperty_String_Name_Subproperty_Value ]
 
-        [Test]
+        [TestMethod]
         public void ReadProperty_String_Name_Subproperty_Value()
         {
 
@@ -629,5 +630,7 @@ namespace Tests
 
         #endregion
 
+        public void Dispose() {// driver.Dispose(); 
+        }
     }
 }

@@ -1,19 +1,20 @@
 
 using System;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Thought.vCards;
+using Assert = NUnit.Framework.Assert;
 
 namespace Tests
 {
-    [TestFixture]
-    public class vCardWebSiteTests
+    [TestClass]
+    public sealed class vCardWebSiteTests : IDisposable
     {
 
         private const string TestUrl = "http://www.thoughtproject.com";
 
         #region [ Constructor ]
 
-        [Test]
+        [TestMethod]
         public void Constructor()
         {
 
@@ -37,7 +38,7 @@ namespace Tests
 
         #region [ Constructor_Url ]
 
-        [Test]
+        [TestMethod]
         public void Constructor_Url()
         {
 
@@ -62,7 +63,7 @@ namespace Tests
 
         #region [ Constructor_NullUrl ]
 
-        [Test]
+        [TestMethod]
         public void Constructor_NullUrl()
         {
             vCardWebsite site = new vCardWebsite((string)null);
@@ -77,7 +78,7 @@ namespace Tests
 
         #region [ Constructor_Url_WebSiteType ]
 
-        [Test]
+        [TestMethod]
         public void Constructor_Url_WebSiteType()
         {
 
@@ -100,7 +101,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_IsPersonalSite ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_IsPersonalSite()
         {
 
@@ -122,7 +123,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_IsWorkSite ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_IsWorkSite()
         {
 
@@ -144,7 +145,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_WebSiteType ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_WebSiteType()
         {
 
@@ -203,7 +204,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_Url ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_Url()
         {
 
@@ -219,5 +220,7 @@ namespace Tests
 
         #endregion
 
+        public void Dispose() { //driver.Dispose(); 
+        }
     }
 }

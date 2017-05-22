@@ -1,14 +1,15 @@
 
 using System;
 using System.IO;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Thought.vCards;
+using Assert = NUnit.Framework.Assert;
 
 namespace Tests
 {
 
-    [TestFixture]
-    public class vCardTests
+    [TestClass]
+    public sealed class vCardTests : IDisposable
     {
 
         // The next set of tests valid each simple property
@@ -21,7 +22,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_AdditionalNames ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_AdditionalNames()
         {
 
@@ -41,23 +42,23 @@ namespace Tests
 
         #region [ ReadWriteProperty_BirthDate ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_BirthDate()
         {
 
             vCard card = new vCard();
-            card.BirthDate = DateTime.Parse("04/04/04");
+            card.BirthDate = "04/04/04";
 
             Assert.AreEqual(
-                DateTime.Parse("04/04/04"),
-                card.BirthDate.Value,
+                "04/04/04",
+                card.BirthDate,
                 "The BirthDate property was not set.");
 
             card.BirthDate = null;
 
-            Assert.IsNull(
+            Assert.IsEmpty(
                 card.BirthDate,
-                "The BirthDate property was not set to null.");
+                "The BirthDate property was not set to Empty.");
 
         }
 
@@ -65,7 +66,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_Department ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_Department()
         {
 
@@ -83,7 +84,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_FamilyName ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_FamilyName()
         {
             
@@ -103,7 +104,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_FormattedName ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_FormattedName()
         {
             // Make sure .FormattedName reads/writes
@@ -122,7 +123,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_Gender ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_Gender()
         {
 
@@ -140,7 +141,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_GivenName ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_GivenName()
         {
 
@@ -159,7 +160,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_Mailer ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_Mailer()
         {
 
@@ -176,7 +177,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_NamePrefix ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_NamePrefix()
         {
 
@@ -194,7 +195,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_Office ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_Office()
         {
 
@@ -212,7 +213,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_Organization ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_Organzation()
         {
 
@@ -232,7 +233,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_ProductId ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_ProductId()
         {
 
@@ -250,7 +251,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_RevisionDate ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_RevisionDate()
         {
 
@@ -262,13 +263,23 @@ namespace Tests
                 card.RevisionDate,
                 "The RevisionDate property is not working.");
 
+        // format not working right when it comes to write out the REV property
+        // REV:2013-09-18T15:39:21Z
+        // REV:20130918T153921Z
+
+            DateTime date = DateTime.Parse("11/25/2012 01:01 AM");
+
+            string revDate =  date.ToString("s") + "Z";
+
+            Assert.AreEqual("2012-11-25T01:01:00Z", revDate);
+
         }
 
         #endregion
 
         #region [ ReadWriteProperty_Role ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_Role()
         {
 
@@ -286,7 +297,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_TimeZone ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_TimeZone()
         {
             vCard card = new vCard();
@@ -301,7 +312,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_Title ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_Title()
         {
 
@@ -321,7 +332,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_UniqueId ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_UniqueId()
         {
 
@@ -344,7 +355,7 @@ namespace Tests
 
         #region [ StringEmpty_AdditionalNames ]
 
-        [Test]
+        [TestMethod]
         public void StringEmpty_AdditionalNames()
         {
 
@@ -366,7 +377,7 @@ namespace Tests
 
         #region [ StringEmpty_Department ]
 
-        [Test]
+        [TestMethod]
         public void StringEmpty_Department()
         {
 
@@ -388,7 +399,7 @@ namespace Tests
 
         #region [ StringEmpty_DisplayName ]
 
-        [Test]
+        [TestMethod]
         public void StringEmpty_DisplayName()
         {
 
@@ -410,7 +421,7 @@ namespace Tests
 
         #region [ StringEmpty_FamilyName ]
 
-        [Test]
+        [TestMethod]
         public void StringEmpty_FamilyName()
         {
 
@@ -432,7 +443,7 @@ namespace Tests
 
         #region [ StringEmpty_FormattedName ]
 
-        [Test]
+        [TestMethod]
         public void StringEmpty_FormattedName()
         {
 
@@ -454,7 +465,7 @@ namespace Tests
 
         #region [ StringEmpty_GivenName ]
 
-        [Test]
+        [TestMethod]
         public void StringEmpty_GivenName()
         {
 
@@ -476,7 +487,7 @@ namespace Tests
 
         #region [ StringEmpty_Mailer ]
 
-        [Test]
+        [TestMethod]
         public void StringEmpty_Mailer()
         {
 
@@ -498,7 +509,7 @@ namespace Tests
 
         #region [ StringEmpty_NamePrefix ]
 
-        [Test]
+        [TestMethod]
         public void StringEmpty_NamePrefix()
         {
 
@@ -521,7 +532,7 @@ namespace Tests
 
         #region [ StringEmpty_NameSuffix ]
 
-        [Test]
+        [TestMethod]
         public void StringEmpty_NameSuffix()
         {
 
@@ -543,7 +554,7 @@ namespace Tests
 
         #region [ StringEmpty_Office ]
 
-        [Test]
+        [TestMethod]
         public void StringEmpty_Office()
         {
 
@@ -565,7 +576,7 @@ namespace Tests
 
         #region [ StringEmpty_Organization ]
 
-        [Test]
+        [TestMethod]
         public void StringEmpty_Organization()
         {
 
@@ -587,7 +598,7 @@ namespace Tests
 
         #region [ StringEmpty_ProductId ]
 
-        [Test]
+        [TestMethod]
         public void StringEmpty_ProductId()
         {
 
@@ -609,7 +620,7 @@ namespace Tests
 
         #region [ StringEmpty_Role ]
 
-        [Test]
+        [TestMethod]
         public void StringEmpty_Role()
         {
 
@@ -631,7 +642,7 @@ namespace Tests
 
         #region [ StringEmpty_TimeZone ]
 
-        [Test]
+        [TestMethod]
         public void StringEmpty_TimeZone()
         {
 
@@ -653,7 +664,7 @@ namespace Tests
 
         #region [ StringEmpty_Title ]
 
-        [Test]
+        [TestMethod]
         public void StringEmpty_Title()
         {
 
@@ -675,7 +686,7 @@ namespace Tests
 
         #region [ StringEmpty_UniqueId ]
 
-        [Test]
+        [TestMethod]
         public void StringEmpty_UniqueId()
         {
 
@@ -695,5 +706,7 @@ namespace Tests
 
         #endregion
 
+        public void Dispose() { //driver.Dispose();  
+        }
     }
 }
