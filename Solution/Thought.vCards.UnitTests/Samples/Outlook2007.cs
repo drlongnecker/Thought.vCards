@@ -330,8 +330,8 @@ namespace Tests.Samples
                 "BDAY on line 20 should have been loaded (property is null).");
 
             Assert.AreEqual(
-                new DateTime(2009, 4, 14),
-                card.BirthDate.Value,
+                "20090414",
+                card.BirthDate,
                 "BDAY on line 20 mismatch.");
 
             // 21: KEY;X509;ENCODING=BASE64:

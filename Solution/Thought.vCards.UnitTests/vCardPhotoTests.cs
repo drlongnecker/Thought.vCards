@@ -2,13 +2,13 @@
 using System;
 using System.Drawing;
 using System.IO;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Thought.vCards;
 
 namespace Tests
 {
-    [TestFixture]
-    public class vCardPhotoTests
+    [TestClass]
+    public sealed class vCardPhotoTests : IDisposable
     {
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Tests
 
         #region [ Constructor_String ]
 
-        [Test]
+        [TestMethod]
         public void Constructor_String()
         {
 
@@ -56,9 +56,30 @@ namespace Tests
 
         #endregion
 
+        [TestMethod]
+        public void Constructor_Encoded_Data()
+        {
+           
+            vCardPhoto p = new vCardPhoto(TestPhotoUrl);
+            p.Fetch();
+            var bytes = p.GetBytes();
+
+            var base64Image = Convert.ToBase64String(bytes);
+
+            vCardPhoto photo = new vCardPhoto(base64Image, true);
+
+            Assert.IsTrue(photo.HasEncodedData, "encoded data is false");
+
+            var data = photo.EncodedData;
+
+            Assert.AreEqual(base64Image, data);
+           
+
+        }
+
         #region [ Constructor_String_Empty ]
 
-        [Test, ExpectedException(typeof(ArgumentNullException))]
+        [TestMethod, ExpectedException(typeof(ArgumentNullException))]
         public void Constructor_String_Empty()
         {
             vCardPhoto photo = new vCardPhoto(string.Empty);
@@ -68,7 +89,7 @@ namespace Tests
 
         #region [ Constructor_String_Null ]
 
-        [Test, ExpectedException(typeof(ArgumentNullException))]
+        [TestMethod, ExpectedException(typeof(ArgumentNullException))]
         public void Constructor_String_Null()
         {
             vCardPhoto photo = new vCardPhoto((string)null);
@@ -78,7 +99,7 @@ namespace Tests
 
         #region [ Constructor_Uri_Null ]
 
-        [Test, ExpectedException(typeof(ArgumentNullException))]
+        [TestMethod, ExpectedException(typeof(ArgumentNullException))]
         public void Constructor_Uri_Null()
         {
             new vCardPhoto((Uri)null);
@@ -96,7 +117,7 @@ namespace Tests
 
         #region [ Fetch_Good ]
 
-        [Test]
+        [TestMethod]
         public void Fetch_Good()
         {
 
@@ -145,5 +166,7 @@ namespace Tests
 
         #endregion
 
+        public void Dispose() {// driver.Dispose();
+        }
     }
 }

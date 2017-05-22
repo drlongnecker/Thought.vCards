@@ -1,17 +1,18 @@
 
 using System;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Thought.vCards;
+using Assert =NUnit.Framework.Assert;
 
 namespace Tests
 {
-    [TestFixture]
-    public class vCardPhoneTests
+    [TestClass]
+    public sealed class vCardPhoneTests : IDisposable
     {
 
         #region [ EmptyString_FullNumber ]
 
-        [Test]
+        [TestMethod]
         public void EmptyString_FullNumber()
         {
 
@@ -37,7 +38,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_FullNumber ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_FullNumber()
         {
 
@@ -56,7 +57,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_IsBBS ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_IsBBS()
         {
 
@@ -74,7 +75,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_IsCar ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_IsCar()
         {
 
@@ -92,7 +93,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_IsCellular ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_IsCellular()
         {
 
@@ -110,7 +111,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_IsFax ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_IsFax()
         {
 
@@ -128,7 +129,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_IsHome ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_IsHome()
         {
 
@@ -146,7 +147,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_IsISDN ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_IsISDN()
         {
 
@@ -164,7 +165,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_IsMessagingService ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_IsMessagingService()
         {
 
@@ -182,7 +183,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_IsModem ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_IsModem()
         {
 
@@ -200,7 +201,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_IsPager ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_IsPager()
         {
 
@@ -218,7 +219,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_IsPreferred ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_IsPreferred()
         {
 
@@ -236,7 +237,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_IsVideo ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_IsVideo()
         {
 
@@ -254,7 +255,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_IsVoice ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_IsVoice()
         {
 
@@ -272,7 +273,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_IsWork ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_IsWork()
         {
 
@@ -288,5 +289,7 @@ namespace Tests
 
         #endregion
 
+        public void Dispose() {// driver.Dispose(); 
+        }
     }
 }

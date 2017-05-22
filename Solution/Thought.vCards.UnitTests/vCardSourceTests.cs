@@ -1,18 +1,19 @@
 
 using System;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Thought.vCards;
+using Assert = NUnit.Framework.Assert;
 
 namespace Tests
 {
 
-    [TestFixture]
-    public class vCardSourceTests
+    [TestClass]
+    public sealed class vCardSourceTests : IDisposable
     {
 
         #region [ Constructor ]
 
-        [Test]
+        [TestMethod]
         public void Constructor()
         {
 
@@ -35,7 +36,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_Context ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_Context()
         {
 
@@ -53,7 +54,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_Uri ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_Uri()
         {
 
@@ -70,5 +71,7 @@ namespace Tests
 
         #endregion
 
+        public void Dispose() {// driver.Dispose();
+        }
     }
 }

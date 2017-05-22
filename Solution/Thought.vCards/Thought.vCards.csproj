@@ -65,6 +65,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="vCardSocialProfile.cs" />
+    <Compile Include="vCardSocialProfileCollection.cs" />
+    <Compile Include="vCardIMPP.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="vCard.cs" />
     <Compile Include="vCardAccessClassification.cs" />
@@ -79,6 +82,7 @@
     <Compile Include="vCardEncoding.cs" />
     <Compile Include="vCardException.cs" />
     <Compile Include="vCardFormat.cs" />
+    <Compile Include="vCardIMPPCollection.cs" />
     <Compile Include="vCardNote.cs" />
     <Compile Include="vCardNoteCollection.cs" />
     <Compile Include="vCardDeliveryAddressTypes.cs" />

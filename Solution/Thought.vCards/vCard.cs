@@ -40,7 +40,7 @@ namespace Thought.vCards
 
         private vCardAccessClassification accessClassification;
         private string additionalNames;
-        private DateTime? birthDate;
+        private string birthDate;
         private StringCollection categories;
         private string department;
         private string displayName;
@@ -72,6 +72,8 @@ namespace Thought.vCards
         private vCardPhotoCollection photos;
         private vCardSourceCollection sources;
         private vCardWebsiteCollection websites;
+        private vCardIMPPCollection ims;
+        private vCardSocialProfileCollection sps;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="vCard"/> class.
@@ -99,6 +101,7 @@ namespace Thought.vCards
             this.timeZone = string.Empty;
             this.title = string.Empty;
             this.uniqueId = string.Empty;
+            this.birthDate = string.Empty;
 
             this.categories = new StringCollection();
             this.certificates = new vCardCertificateCollection();
@@ -111,6 +114,8 @@ namespace Thought.vCards
             this.photos = new vCardPhotoCollection();
             this.sources = new vCardSourceCollection();
             this.websites = new vCardWebsiteCollection();
+            this.ims = new vCardIMPPCollection();
+            this.sps = new vCardSocialProfileCollection();
         }
 
 
@@ -190,11 +195,11 @@ namespace Thought.vCards
         /// <summary>
         ///     The birthdate of the person.
         /// </summary>
-        public DateTime? BirthDate
+        public string BirthDate
         {
             get
             {
-                return this.birthDate;
+                return this.birthDate ?? string.Empty;
             }
             set
             {
@@ -739,6 +744,22 @@ namespace Thought.vCards
             {
                 return this.websites;
             }
+        }
+
+        /// <summary>
+        /// IMPP Collection 
+        /// </summary>
+        public vCardIMPPCollection IMs
+        {
+            get { return this.ims; }
+        }
+
+        /// <summary>
+        /// SocialProfile collection for the vCard in the X-SOCIALPROFILE property
+        /// </summary>
+        public vCardSocialProfileCollection SocialProfiles
+        {
+            get { return this.sps; }
         }
 
     }
