@@ -1,18 +1,18 @@
 
 using System;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Thought.vCards;
 
 namespace Tests
 {
 
-    [TestFixture]
-    public class vCardSubpropertyCollectionTests
+    [TestClass]
+    public sealed class vCardSubpropertyCollectionTests : IDisposable
     {
 
         #region [ Add_Name_Empty ]
 
-        [Test, ExpectedException(typeof(ArgumentNullException))]
+        [TestMethod, ExpectedException(typeof(ArgumentNullException))]
         public void Add_Name_Empty()
         {
 
@@ -27,7 +27,7 @@ namespace Tests
 
         #region [ Add_Name_Null ]
 
-        [Test, ExpectedException(typeof(ArgumentNullException))]
+        [TestMethod, ExpectedException(typeof(ArgumentNullException))]
         public void Add_Name_Null()
         {
 
@@ -42,7 +42,7 @@ namespace Tests
 
         #region [ AddOrUpdate_NewNameValue ]
 
-        [Test]
+        [TestMethod]
         public void AddOrUpdate_NewNameValue()
         {
 
@@ -72,7 +72,7 @@ namespace Tests
 
         #region [ AddOrUpdate_UpdatedValue ]
 
-        [Test]
+        [TestMethod]
         public void AddOrUpdate_UpdatedValue()
         {
 
@@ -119,7 +119,7 @@ namespace Tests
 
         #region [ AddOrUpdate_UpdatedValueToNull ]
 
-        [Test]
+        [TestMethod]
         public void AddOrUpdate_UpdatedValueToNull()
         {
 
@@ -165,7 +165,7 @@ namespace Tests
 
         #region [ Contains ]
 
-        [Test]
+        [TestMethod]
         public void Contains()
         {
 
@@ -200,7 +200,7 @@ namespace Tests
 
         #region [ Contains_Empty ]
 
-        [Test]
+        [TestMethod]
         public void Contains_Empty()
         {
 
@@ -215,7 +215,7 @@ namespace Tests
 
         #region [ Contains_Null ]
 
-        [Test]
+        [TestMethod]
         public void Contains_Null()
         {
 
@@ -241,7 +241,7 @@ namespace Tests
 
         #region [ GetValue_Name_Empty ]
 
-        [Test, ExpectedException(typeof(ArgumentNullException))]
+        [TestMethod, ExpectedException(typeof(ArgumentNullException))]
         public void GetValue_Name_Empty()
         {
 
@@ -256,7 +256,7 @@ namespace Tests
 
         #region [ GetValue_Name_Null ]
 
-        [Test, ExpectedException(typeof(ArgumentNullException))]
+        [TestMethod, ExpectedException(typeof(ArgumentNullException))]
         public void GetValue__Name_Null()
         {
 
@@ -271,7 +271,7 @@ namespace Tests
 
         #region [ GetValue_Name_ValueDoesNotExist ]
 
-        [Test]
+        [TestMethod]
         public void GetValue_Name_ValueDoesNotExist()
         {
 
@@ -290,7 +290,7 @@ namespace Tests
 
         #region [ GetValue_Name_ValueExists ]
 
-        [Test]
+        [TestMethod]
         public void GetValue_Name_ValueExists()
         {
 
@@ -331,7 +331,7 @@ namespace Tests
 
         #region [ GetValue_ValueList_NameDoesNotExist_ListValueExists ]
 
-        [Test]
+        [TestMethod]
         public void GetValue_ValueList_NameDoesNotExist_ListValueExists()
         {
 
@@ -357,7 +357,7 @@ namespace Tests
 
         #region [ GetValue_ValueList_NameDoesNotExist_NullList ]
 
-        [Test]
+        [TestMethod]
         public void GetValue_ValueList_NameDoesNotExist_NullList()
         {
 
@@ -380,7 +380,7 @@ namespace Tests
 
         #region [ GetValue_ValueList_NameExists_NullList ]
 
-        [Test]
+        [TestMethod]
         public void GetValue_ValueList_NameExists_NullList()
         {
 
@@ -409,7 +409,7 @@ namespace Tests
 
         #region [ IndexOf ]
 
-        [Test]
+        [TestMethod]
         public void IndexOf()
         {
 
@@ -441,7 +441,7 @@ namespace Tests
 
         #region [ IndexOf_EmptyName ]
 
-        [Test]
+        [TestMethod]
         public void IndexOf_EmptyName()
         {
 
@@ -458,7 +458,7 @@ namespace Tests
 
         #region [ IndexOf_MissingValueInEmptyCollection ]
 
-        [Test]
+        [TestMethod]
         public void IndexOf_MissingValueInEmptyCollection()
         {
 
@@ -479,7 +479,7 @@ namespace Tests
 
         #region [ IndexOf_MissingValueInPopulatedCollection ]
 
-        [Test]
+        [TestMethod]
         public void IndexOf_MissingValueInPopulatedCollection()
         {
 
@@ -500,7 +500,7 @@ namespace Tests
 
         #region [ IndexOf_Null ]
 
-        [Test]
+        [TestMethod]
         public void IndexOf_Null()
         {
 
@@ -523,7 +523,7 @@ namespace Tests
 
         #region [ IndexOfAny_NoMatches_EmptyCollection ]
 
-        [Test]
+        [TestMethod]
         public void IndexOfAny_NoMatches_EmptyCollection()
         {
 
@@ -544,7 +544,7 @@ namespace Tests
 
         #region [ IndexOfAny_NoMatches_PopulatedCollection ]
 
-        [Test]
+        [TestMethod]
         public void IndexOfAny_NoMatches_PopulatedCollection()
         {
 
@@ -569,7 +569,7 @@ namespace Tests
 
         #region [ IndexOfAny_OneMatch ]
 
-        [Test]
+        [TestMethod]
         public void IndexOfAny_OneMatch()
         {
 
@@ -591,5 +591,7 @@ namespace Tests
 
         #endregion
 
+        public void Dispose() {//  driver.Dispose(); 
+        }
     }
 }

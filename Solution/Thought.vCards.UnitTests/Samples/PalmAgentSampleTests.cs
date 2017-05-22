@@ -1462,8 +1462,8 @@ namespace Tests.Samples
                 "BDAY on line 191 should not be null.");
 
             Assert.AreEqual(
-                DateTime.Parse("1987-09-27T08:30:00-06:00"),
-                card.BirthDate.Value,
+                "1987-09-27T08:30:00-06:00",
+                card.BirthDate,
                 "BDAY on line 191 failed.");
 
             // 192 TEL;TYPE=work,pref,voice,msg:+1-213-555-1234
@@ -1666,8 +1666,8 @@ namespace Tests.Samples
                 "BDAY on line 207 should not be null.");
 
             Assert.AreEqual(
-                DateTime.Parse("1987-09-27T08:30:00-06:00"),
-                card.BirthDate.Value,
+                "1987-09-27T08:30:00-06:00",
+                card.BirthDate,
                 "BDAY on line 207 failed.");
 
             // 208 TEL;TYPE=work,pref,voice,msg:+1-213-555-1234
