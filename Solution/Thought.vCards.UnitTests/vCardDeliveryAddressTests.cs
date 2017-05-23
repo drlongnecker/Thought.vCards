@@ -1,17 +1,18 @@
 
 using System;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Thought.vCards;
+using Assert = NUnit.Framework.Assert;
 
 namespace Tests
 {
-    [TestFixture]
-    public class vCardDeliveryAddressTests
+    [TestClass]
+    public sealed class vCardDeliveryAddressTests : IDisposable
     {
 
         #region [ Constructor ]
 
-        [Test]
+        [TestMethod]
         public void Constructor()
         {
 
@@ -45,7 +46,7 @@ namespace Tests
 
         #region [ EmptyString_City ]
 
-        [Test]
+        [TestMethod]
         public void EmptyString_City()
         {
 
@@ -67,7 +68,7 @@ namespace Tests
 
         #region [ EmptyString_Country ]
 
-        [Test]
+        [TestMethod]
         public void EmptyString_Country()
         {
 
@@ -89,7 +90,7 @@ namespace Tests
 
         #region [ EmptyString_PostalCode ]
 
-        [Test]
+        [TestMethod]
         public void EmptyString_PostalCode()
         {
 
@@ -111,7 +112,7 @@ namespace Tests
 
         #region [ EmptyString_Region ]
 
-        [Test]
+        [TestMethod]
         public void EmptyString_Region()
         {
 
@@ -133,7 +134,7 @@ namespace Tests
 
         #region [ EmptyString_Street ]
 
-        [Test]
+        [TestMethod]
         public void EmptyString_Street()
         {
 
@@ -155,25 +156,24 @@ namespace Tests
 
         #region [ ReadWriteProperty_AddressType ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_AddressType()
         {
 
             vCardDeliveryAddress address = new vCardDeliveryAddress();
 
-            address.AddressType = vCardDeliveryAddressTypes.Domestic;
-            Assert.AreEqual(
-                vCardDeliveryAddressTypes.Domestic,
-                address.AddressType,
-                "The AddressType property is not working.");
+            address.AddressType.Add(vCardDeliveryAddressTypes.Domestic);
 
+            Assert.IsTrue(address.AddressType.Contains(vCardDeliveryAddressTypes.Domestic), "The AddressType property is not working.");
+
+ 
         }
 
         #endregion
 
         #region [ ReadWriteProperty_City ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_City()
         {
 
@@ -190,7 +190,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_Country ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_Country()
         {
 
@@ -205,129 +205,9 @@ namespace Tests
 
         #endregion
 
-        #region [ ReadWriteProperty_IsDomestic ]
-
-        [Test]
-        public void ReadWriteProperty_IsDomestic()
-        {
-
-            vCardDeliveryAddress address = new vCardDeliveryAddress();
-            address.IsDomestic = true;
-            Assert.IsTrue(
-                address.IsDomestic,
-                "IsDomestic should have been set to true.");
-
-            address.IsDomestic = false;
-            Assert.IsFalse(
-                address.IsDomestic,
-                "IsDomestic should have been set to false.");
-        }
-
-        #endregion
-
-        #region [ ReadWriteProperty_IsHome ]
-
-        [Test]
-        public void ReadWriteProperty_IsHome()
-        {
-
-            vCardDeliveryAddress address = new vCardDeliveryAddress();
-            address.IsHome = true;
-            Assert.IsTrue(
-                address.IsHome,
-                "IsHome should have been set to true.");
-
-            address.IsHome = false;
-            Assert.IsFalse(
-                address.IsHome,
-                "IsHome should have been set to false.");
-        }
-
-        #endregion
-
-        #region [ ReadWriteProperty_IsInternational ]
-
-        [Test]
-        public void ReadWriteProperty_IsInternational()
-        {
-
-            vCardDeliveryAddress address = new vCardDeliveryAddress();
-            address.IsInternational = true;
-            Assert.IsTrue(
-                address.IsInternational,
-                "IsInternational should have been set to true.");
-
-            address.IsInternational = false;
-            Assert.IsFalse(
-                address.IsInternational,
-                "IsInternational should have been set to false.");
-        }
-
-        #endregion
-
-        #region [ ReadWriteProperty_IsParcel ]
-
-        [Test]
-        public void ReadWriteProperty_IsParcel()
-        {
-
-            vCardDeliveryAddress address = new vCardDeliveryAddress();
-            address.IsParcel = true;
-            Assert.IsTrue(
-                address.IsParcel,
-                "IsParcel should have been set to true.");
-
-            address.IsParcel = false;
-            Assert.IsFalse(
-                address.IsParcel,
-                "IsParcel should have been set to false.");
-        }
-
-        #endregion
-
-        #region [ ReadWriteProperty_IsPostal ]
-
-        [Test]
-        public void ReadWriteProperty_IsPostal()
-        {
-
-            vCardDeliveryAddress address = new vCardDeliveryAddress();
-            address.IsPostal = true;
-            Assert.IsTrue(
-                address.IsPostal,
-                "IsPostal should have been set to true.");
-
-            address.IsPostal = false;
-            Assert.IsFalse(
-                address.IsPostal,
-                "IsPostal should have been set to false.");
-        }
-
-        #endregion
-
-        #region [ ReadWriteProperty_IsWork ]
-
-        [Test]
-        public void ReadWriteProperty_IsWork()
-        {
-
-            vCardDeliveryAddress address = new vCardDeliveryAddress();
-            address.IsWork = true;
-            Assert.IsTrue(
-                address.IsWork,
-                "IsWork should have been set to true.");
-
-            address.IsWork = false;
-            Assert.IsFalse(
-                address.IsWork,
-                "IsWork should have been set to false.");
-        }
-
-        #endregion
-
         #region [ ReadWriteProperty_PostalCode ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_PostalCode()
         {
 
@@ -344,7 +224,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_Region ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_Region()
         {
 
@@ -361,7 +241,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_Street ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_Street()
         {
 
@@ -376,5 +256,7 @@ namespace Tests
 
         #endregion
 
+        public void Dispose() { //driver.Dispose(); 
+        }
     }
 }

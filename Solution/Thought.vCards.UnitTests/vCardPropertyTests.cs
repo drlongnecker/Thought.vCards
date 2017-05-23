@@ -1,7 +1,8 @@
 
 using System;
 using Thought.vCards;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Assert = NUnit.Framework.Assert;
 
 namespace Tests
 {
@@ -9,8 +10,8 @@ namespace Tests
     /// <summary>
     ///     Unit tests of the vCardProperty class.
     /// </summary>
-    [TestFixture]
-    public class vCardPropertyTests
+    [TestClass]
+    public sealed class vCardPropertyTests : IDisposable
     {
 
         // The next tests ensure the various constructors initialize
@@ -19,7 +20,7 @@ namespace Tests
 
         #region [ Constructor ]
 
-        [Test]
+        [TestMethod]
         public void Constructor()
         {
 
@@ -43,7 +44,7 @@ namespace Tests
 
         #region [ Constructor_Name ]
 
-        [Test]
+        [TestMethod]
         public void Constructor_Name()
         {
 
@@ -72,7 +73,7 @@ namespace Tests
 
         #region [ Constructor_Name_Value ]
 
-        [Test]
+        [TestMethod]
         public void Constructor_Name_Value()
         {
 
@@ -103,5 +104,7 @@ namespace Tests
 
         #endregion
 
+        public void Dispose() {// driver.Dispose();
+        }
     }
 }

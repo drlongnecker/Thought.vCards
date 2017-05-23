@@ -1,15 +1,16 @@
 
 using System;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Thought.vCards;
+using Assert = NUnit.Framework.Assert;
 
 namespace Tests
 {
-    [TestFixture]
-    public class vCardCertificateTests
+    [TestClass]
+    public sealed class vCardCertificateTests : IDisposable
     {
 
-        [Test]
+        [TestMethod]
         public void EmptyString_KeyType()
         {
 
@@ -27,5 +28,7 @@ namespace Tests
 
         }
 
+        public void Dispose() { //driver.Dispose(); 
+        }
     }
 }

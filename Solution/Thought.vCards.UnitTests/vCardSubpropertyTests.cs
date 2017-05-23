@@ -1,17 +1,17 @@
 
 using System;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Thought.vCards;
 
 namespace Tests
 {
-    [TestFixture]
-    public class vCardSubpropertyTests
+    [TestClass]
+    public sealed class vCardSubpropertyTests : IDisposable
     {
 
         #region [ Constructor_Name ]
 
-        [Test]
+        [TestMethod]
         public void Constructor_Name()
         {
 
@@ -32,7 +32,7 @@ namespace Tests
 
         #region [ Constructor_Name_Value ]
 
-        [Test]
+        [TestMethod]
         public void Constructor_Name_Value()
         {
 
@@ -54,7 +54,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_Name ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_Name()
         {
 
@@ -72,7 +72,7 @@ namespace Tests
 
         #region [ ReadWriteProperty_Value ]
 
-        [Test]
+        [TestMethod]
         public void ReadWriteProperty_Value()
         {
 
@@ -88,5 +88,7 @@ namespace Tests
 
         #endregion
 
+        public void Dispose() {// driver.Dispose(); 
+        }
     }
 }

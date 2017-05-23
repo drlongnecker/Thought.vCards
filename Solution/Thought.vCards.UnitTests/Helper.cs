@@ -13,6 +13,7 @@ namespace Tests
     /// </summary>
     public static class Helper
     {
+ 
 
         // The following functions export a vCard and then re-read it back
         // as a new vCard.  All fields and collections are compared to ensure

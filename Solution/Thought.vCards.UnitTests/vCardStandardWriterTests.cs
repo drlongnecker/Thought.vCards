@@ -1,12 +1,13 @@
 
 using System;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Thought.vCards;
+using Assert = NUnit.Framework.Assert;
 
 namespace Tests
 {
-    [TestFixture]
-    public class vCardStandardWriterTests
+    [TestClass]
+    public sealed class vCardStandardWriterTests : IDisposable
     {
 
         // The next set of methods test the EncodeEscaped
@@ -16,7 +17,7 @@ namespace Tests
 
         #region [ EncodeEscaped_Comma ]
 
-        [Test]
+        [TestMethod]
         public void EncodeEscaped_Comma()
         {
 
@@ -32,7 +33,7 @@ namespace Tests
 
         #region [ EncodeEscaped_Comma_Comma ]
 
-        [Test]
+        [TestMethod]
         public void EncodeEscaped_Comma_Comma()
         {
 
@@ -48,7 +49,7 @@ namespace Tests
 
         #region [ EncodeEscaped_Comma_Text ]
 
-        [Test]
+        [TestMethod]
         public void EncodeEscaped_Comma_Text()
         {
 
@@ -64,7 +65,7 @@ namespace Tests
 
         #region [ EncodeEscaped_Comma_Text_Comma ]
 
-        [Test]
+        [TestMethod]
         public void EncodeEscaped_Comma_Text_Comma()
         {
 
@@ -80,7 +81,7 @@ namespace Tests
 
         #region [ EncodeEscaped_CRLF ]
 
-        [Test]
+        [TestMethod]
         public void EncodeEscaped_CRLF()
         {
 
@@ -96,7 +97,7 @@ namespace Tests
 
         #region [ EncodeEscaped_CRLF_Text ]
 
-        [Test]
+        [TestMethod]
         public void EncodeEscaped_CRLF_Text()
         {
 
@@ -112,7 +113,7 @@ namespace Tests
 
         #region [ EncodeEscaped_Empty ]
 
-        [Test]
+        [TestMethod]
         public void EncodeEscaped_Empty()
         {
 
@@ -128,7 +129,7 @@ namespace Tests
 
         #region [ EncodeEscaped_Null ]
 
-        [Test]
+        [TestMethod]
         public void EncodeEscaped_Null()
         {
 
@@ -144,7 +145,7 @@ namespace Tests
 
         #region [ EncodeEscaped_Semicolon ]
 
-        [Test]
+        [TestMethod]
         public void EncodeEscaped_Semicolon()
         {
 
@@ -160,7 +161,7 @@ namespace Tests
 
         #region [ EncodeEscaped_Semicolon_Space_Semicolon ]
 
-        [Test]
+        [TestMethod]
         public void EncodeEscaped_Semicolon_Space_Semicolon()
         {
 
@@ -176,7 +177,7 @@ namespace Tests
 
         #region [ EncodeEscaped_Semicolon_CRLF ]
 
-        [Test]
+        [TestMethod]
         public void EncodeEscaped_Semicolon_CRLF()
         {
 
@@ -192,7 +193,7 @@ namespace Tests
 
         #region [ EncodeEscaped_Text_Comma ]
 
-        [Test]
+        [TestMethod]
         public void EncodeEscaped_Text_Comma()
         {
 
@@ -208,7 +209,7 @@ namespace Tests
 
         #region [ EncodeEscaped_Text_Comma_Text ]
 
-        [Test]
+        [TestMethod]
         public void EncodeEscaped_Text_Comma_Text()
         {
 
@@ -231,7 +232,7 @@ namespace Tests
 
         #region [ EncodeProperty_Name ]
 
-        [Test]
+        [TestMethod]
         public void EncodeProperty_Name()
         {
 
@@ -251,7 +252,7 @@ namespace Tests
 
         #region [ EncodeProperty_Name_Subproperties ]
 
-        [Test]
+        [TestMethod]
         public void EncodeProperty_Name_Subproperties()
         {
 
@@ -274,7 +275,7 @@ namespace Tests
 
         #region [ EncodeProperty_Name_Subproperties_Value ]
 
-        [Test]
+        [TestMethod]
         public void EncodeProperty_Name_Subproperties_Value()
         {
 
@@ -297,7 +298,7 @@ namespace Tests
 
         #region [ EncodeProperty_Name_Subproperty ]
 
-        [Test]
+        [TestMethod]
         public void EncodeProperty_Name_Subproperty()
         {
 
@@ -319,7 +320,7 @@ namespace Tests
 
         #region [ EncodeProperty_Name_Subproperty_Value ]
 
-        [Test]
+        [TestMethod]
         public void EncodeProperty_Name_Subproperty_Value()
         {
 
@@ -341,7 +342,7 @@ namespace Tests
 
         #region [ EncodeProperty_Name_Subproperty_Subvalue ]
 
-        [Test]
+        [TestMethod]
         public void EncodeProperty_Name_Subproperty_Subvalue()
         {
 
@@ -363,7 +364,7 @@ namespace Tests
 
         #region [ EncodeProperty_Name_Subproperty_Subvalue_Value ]
 
-        [Test]
+        [TestMethod]
         public void EncodeProperty_Name_Subproperty_Subvalue_Value()
         {
 
@@ -385,7 +386,7 @@ namespace Tests
 
         #region [ EncodeProperty_Name_Subproperty_Subvalue_Subproperty ]
 
-        [Test]
+        [TestMethod]
         public void EncodeProperty_Name_Subproperty_Subvalue_Subproperty()
         {
 
@@ -408,7 +409,7 @@ namespace Tests
 
         #region [ EncodeProperty_Name_Subproperty_Subvalue_Subproperty_Value ]
 
-        [Test]
+        [TestMethod]
         public void EncodeProperty_Name_Subproperty_Subvalue_Subproperty_Value()
         {
 
@@ -431,7 +432,7 @@ namespace Tests
 
         #region [ EncodeProperty_Name_Value ]
 
-        [Test]
+        [TestMethod]
         public void EncodeProperty_Name_Value()
         {
 
@@ -451,7 +452,7 @@ namespace Tests
 
         #region [ EncodeProperty_Null ]
 
-        [Test, ExpectedException(typeof(ArgumentNullException))]
+        [TestMethod, ExpectedException(typeof(ArgumentNullException))]
         public void EncodeProperty_Null()
         {
 
@@ -466,7 +467,7 @@ namespace Tests
 
         #region [ EncodeQuotedPrintable_CRLF ]
 
-        [Test]
+        [TestMethod]
         public void EncodeQuotedPrintable_CRLF()
         {
 
@@ -480,7 +481,7 @@ namespace Tests
 
         #region [ EncodeQuotedPrintable_Empty ]
 
-        [Test]
+        [TestMethod]
         public void EncodeQuotedPrintable_Empty()
         {
 
@@ -493,7 +494,7 @@ namespace Tests
 
         #region [ EncodeQuotedPrintable_Null ]
 
-        [Test]
+        [TestMethod]
         public void EncodeQuotedPrintable_Null()
         {
 
@@ -507,7 +508,11 @@ namespace Tests
         }
 
         #endregion
-
+        public void Dispose()
+        { // driver.Dispose(); 
+        }
     }
+
+ 
 
 }
