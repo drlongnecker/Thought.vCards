@@ -126,4 +126,7 @@
   <data name="EmptyName" xml:space="preserve">
     <value>Line {0}: The name section of the property is empty.</value>
   </data>
+  <data name="EmptySubProperty" xml:space="preserve">
+    <value>Line {0}: The subproperty is empty.</value>
+  </data>
 </root>

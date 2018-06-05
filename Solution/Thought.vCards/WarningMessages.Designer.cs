@@ -86,5 +86,14 @@ namespace Thought.vCards {
                 return ResourceManager.GetString("EmptyName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Line {0}: The subproperty is empty..
+        /// </summary>
+        internal static string EmptySubProperty {
+            get {
+                return ResourceManager.GetString("EmptySubProperty", resourceCulture);
+            }
+        }
     }
 }
