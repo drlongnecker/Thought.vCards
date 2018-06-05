@@ -32,6 +32,7 @@ namespace Thought.vCards
     ///     </para>
     /// </remarks>
     /// <seealso cref="vCardPropertyCollection"/>
+    [Serializable]
     public class vCardProperty
     {
 

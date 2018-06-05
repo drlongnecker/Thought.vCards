@@ -24,6 +24,7 @@ namespace Thought.vCards
     ///     </para>
     /// </remarks>
     /// <seealso cref="vCardSourceCollection"/>
+    [Serializable]
     public class vCardSource
     {
 

@@ -42,6 +42,7 @@ namespace Thought.vCards
     ///         for a BBS system.
     ///     </para>
     /// </remarks>
+    [Serializable]
     public class vCardSubproperty
     {
 

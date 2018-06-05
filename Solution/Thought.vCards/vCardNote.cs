@@ -5,12 +5,14 @@
  * See LICENSE.TXT for licensing information.
  * ======================================================================= */
 
+using System;
 namespace Thought.vCards
 {
 
     /// <summary>
     ///     A note or comment in a vCard.
     /// </summary>
+    [Serializable]
     public class vCardNote
     {
 

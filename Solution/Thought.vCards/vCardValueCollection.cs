@@ -15,6 +15,7 @@ namespace Thought.vCards
     /// <summary>
     ///     A collection of string values.
     /// </summary>
+    [Serializable]
     public class vCardValueCollection : StringCollection
     {
 

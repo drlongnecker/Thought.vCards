@@ -30,6 +30,7 @@ namespace Thought.vCards
     /// </remarks>
     /// <seealso cref="vCardProperty"/>
     /// <seealso cref="vCardSubproperty"/>
+    [Serializable]
     public class vCardSubpropertyCollection : Collection<vCardSubproperty>
     {
 

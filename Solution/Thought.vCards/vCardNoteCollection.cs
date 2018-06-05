@@ -14,6 +14,7 @@ namespace Thought.vCards
     /// <summary>
     ///     A collection of <see cref="vCardNote"/> objects.
     /// </summary>
+    [Serializable]
     public class vCardNoteCollection : Collection<vCardNote>
     {
 
