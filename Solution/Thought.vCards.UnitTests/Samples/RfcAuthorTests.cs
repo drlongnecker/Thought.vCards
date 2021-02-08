@@ -6,6 +6,8 @@ using Thought.vCards;
 
 namespace Tests
 {
+
+    #if Windows
     [TestFixture]
     public class RfcAuthorTests
     {
@@ -334,4 +336,5 @@ namespace Tests
         #endregion
 
     }
+    #endif
 }

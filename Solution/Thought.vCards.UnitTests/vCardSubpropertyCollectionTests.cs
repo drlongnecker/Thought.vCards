@@ -12,30 +12,24 @@ namespace Tests
 
         #region [ Add_Name_Empty ]
 
-        [Test, ExpectedException(typeof(ArgumentNullException))]
+        [Test]
         public void Add_Name_Empty()
         {
-
             vCardSubpropertyCollection subs =
                 new vCardSubpropertyCollection();
-
-            subs.Add(string.Empty);
-
+            Assert.Throws<ArgumentNullException>(()=>subs.Add(string.Empty));
         }
 
         #endregion
 
         #region [ Add_Name_Null ]
 
-        [Test, ExpectedException(typeof(ArgumentNullException))]
+        [Test]
         public void Add_Name_Null()
         {
-
             vCardSubpropertyCollection subs =
                 new vCardSubpropertyCollection();
-
-            subs.Add((string)null);
-
+            Assert.Throws<ArgumentNullException>(()=>subs.Add((string)null));
         }
 
         #endregion
@@ -241,30 +235,24 @@ namespace Tests
 
         #region [ GetValue_Name_Empty ]
 
-        [Test, ExpectedException(typeof(ArgumentNullException))]
+        [Test]
         public void GetValue_Name_Empty()
         {
-
             vCardSubpropertyCollection subs =
                 new vCardSubpropertyCollection();
-
-            subs.GetValue(string.Empty);
-
+            Assert.Throws<ArgumentNullException>(()=>subs.GetValue(string.Empty));
         }
 
         #endregion
 
         #region [ GetValue_Name_Null ]
 
-        [Test, ExpectedException(typeof(ArgumentNullException))]
+        [Test]
         public void GetValue__Name_Null()
         {
-
             vCardSubpropertyCollection subs =
                 new vCardSubpropertyCollection();
-
-            subs.GetValue((string)null);
-
+            Assert.Throws<ArgumentNullException>(()=>subs.GetValue((string)null));
         }
 
         #endregion

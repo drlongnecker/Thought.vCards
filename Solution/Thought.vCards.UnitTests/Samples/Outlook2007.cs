@@ -7,6 +7,7 @@ using Thought.vCards;
 
 namespace Tests.Samples
 {
+    #if Windows
     [TestFixture]
     public class Outlook2007
     {
@@ -395,9 +396,8 @@ namespace Tests.Samples
             using(card.Photos[0].GetBitmap())
             {
             }
-
-
         }
 
     }
+    #endif
 }

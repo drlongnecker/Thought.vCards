@@ -8,6 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+#if Windows
 namespace Tests {
     using System;
     
@@ -110,3 +111,4 @@ namespace Tests {
         }
     }
 }
+#endif

@@ -51,6 +51,7 @@ namespace Tests.Samples
      * 
      */
 
+    #if Windows
     [TestFixture]
     public class PalmAgentSampleTests
     {
@@ -1777,4 +1778,5 @@ namespace Tests.Samples
         #endregion
 
     }
+    #endif
 }

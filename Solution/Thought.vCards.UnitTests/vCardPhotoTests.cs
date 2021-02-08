@@ -19,7 +19,7 @@ namespace Tests
         ///     local network.  This will save bandwidth costs for the author.
         /// </summary>
         private const string TestPhotoUrl =
-            "http://www.thoughtproject.com/Common/Download.gif";
+            "https://www.iconsdb.com/icons/preview/green/test-tube-xxl.png";
 
         /// <summary>
         ///     The height of the test image in pixels.
@@ -29,7 +29,7 @@ namespace Tests
         /// <summary>
         ///     The size (in bytes) of the test image.
         /// </summary>
-        private const int TestPhotoSize = 579;
+        private const int TestPhotoSize = 6871;
 
         /// <summary>
         ///     The width of the test photo in pixels.
@@ -58,38 +58,30 @@ namespace Tests
 
         #region [ Constructor_String_Empty ]
 
-        [Test, ExpectedException(typeof(ArgumentNullException))]
+        [Test]
         public void Constructor_String_Empty()
         {
-            vCardPhoto photo = new vCardPhoto(string.Empty);
+            Assert.Throws<ArgumentNullException>(()=>new vCardPhoto(string.Empty));
         }
 
         #endregion
 
         #region [ Constructor_String_Null ]
 
-        [Test, ExpectedException(typeof(ArgumentNullException))]
+        [Test]
         public void Constructor_String_Null()
         {
-            vCardPhoto photo = new vCardPhoto((string)null);
+            Assert.Throws<ArgumentNullException>(()=>new vCardPhoto((string)null));
         }
 
         #endregion
 
         #region [ Constructor_Uri_Null ]
 
-        [Test, ExpectedException(typeof(ArgumentNullException))]
+        [Test]
         public void Constructor_Uri_Null()
         {
-            new vCardPhoto((Uri)null);
-
-            // The following expression is nicer but seems
-            // to not work nice in VS2008 depending on
-            // debugging/exception settings.
-
-            //Assert.Throws<ArgumentNullException>(
-            //    () => new vCardPhoto((Uri)null)
-            //);
+            Assert.Throws<ArgumentNullException>(()=>new vCardPhoto((Uri)null));
         }
 
         #endregion
@@ -125,6 +117,11 @@ namespace Tests
                 data.Length,
                 "The length of the photo is unexpected.");
 
+            #if Linux 
+                // Throw new NotImplementedException("Not implemented OSX test.");
+            #elif OSX 
+                // Throw new NotImplementedException("Not implemented OSX test.");
+            #elif Windows 
             using (Bitmap bitmap = photo.GetBitmap())
             {
 
@@ -139,8 +136,7 @@ namespace Tests
                     "The photo width is unexpected.");
 
             }
-
-
+            #endif
         }
 
         #endregion

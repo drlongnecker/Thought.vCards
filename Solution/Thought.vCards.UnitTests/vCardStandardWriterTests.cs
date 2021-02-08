@@ -451,15 +451,12 @@ namespace Tests
 
         #region [ EncodeProperty_Null ]
 
-        [Test, ExpectedException(typeof(ArgumentNullException))]
+        [Test]
         public void EncodeProperty_Null()
         {
-
             vCardStandardWriter writer =
                 new vCardStandardWriter();
-
-            writer.EncodeProperty(null);
-
+            Assert.Throws<ArgumentNullException>(()=>writer.EncodeProperty(null));
         }
 
         #endregion
@@ -469,11 +466,17 @@ namespace Tests
         [Test]
         public void EncodeQuotedPrintable_CRLF()
         {
-
+            #if Linux 
+            Assert.AreEqual(
+                "==0D==0A",
+                vCardStandardWriter.EncodeQuotedPrintable("\r\n"));
+            #elif OSX 
+                Throw new NotImplementedException("Not implemented OSX test.");
+            #elif Windows 
             Assert.AreEqual(
                 "=0D=0A",
                 vCardStandardWriter.EncodeQuotedPrintable("\r\n"));
-
+            #endif
         }
 
         #endregion

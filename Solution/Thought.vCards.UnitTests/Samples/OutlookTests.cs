@@ -14,6 +14,7 @@ namespace Tests.Samples
      * Tests for Outlook-generated vCards.
      * =================================================================== */
 
+    #if Windows
     [TestFixture]
     public class OutlookTests
     {
@@ -437,10 +438,11 @@ namespace Tests.Samples
                new StreamReader(new MemoryStream(SampleCards.UnicodeNameSample)));
 
             Assert.NotNull(card);
-            Assert.AreEqual("³ÂÀö¾ý", card.GivenName);
+            Assert.AreEqual("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", card.GivenName);
         }
 
         #endregion
 
     }
+    #endif
 }

@@ -20,6 +20,7 @@ namespace Tests.Samples
      * extended properties from a palm device.
      * =================================================================== */
 
+    #if Windows
     [TestFixture]
     public class XPalmWithPhotoTests
     {
@@ -254,4 +255,5 @@ namespace Tests.Samples
         }
 
     }
+    #endif
 }

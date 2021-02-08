@@ -134,7 +134,7 @@
     <value>Resources\RfcAuthors.txt;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="UnicodeNameSample" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>resources\unicodenamesample.txt;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Resources\UnicodeNameSample.txt;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="XPalmWithPhoto" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\XPalmWithPhoto.txt;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

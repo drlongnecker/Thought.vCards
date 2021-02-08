@@ -202,7 +202,6 @@ namespace Thought.vCards
         {
             MemoryStream stream = new MemoryStream(this.data);
             return new Bitmap(stream);
-
         }
 
 
