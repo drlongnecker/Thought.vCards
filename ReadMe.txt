@@ -1,3 +1,7 @@
+*START NOTE:* This project was forked from https://github.com/drlongnecker/Thought.vCards and created to supply a dotnet core support to this great library.
+I have an PullRequest on project, but until this was accepted I use this fork to maintain and create an Nuget package to support dotnet core and run this on my Linux environment.
+
+--------------------------------------
 
 vCard Class Library for .NET (Version 0.4; LGPL license)
 Copyright (c) 2007-2009 David Pinch * http://www.thoughtproject.com/Libraries/vCard/
@@ -185,4 +189,3 @@ License and Copyrights
   You should have received a copy of the GNU Lesser General Public
   License along with this library; if not, write to the Free Software
   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
-  

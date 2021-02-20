@@ -1,3 +1,6 @@
+# Ignore distribution path of lib
+dist/
+
 #ignore outputs of project
 [Tt]esting.db
 lint.db

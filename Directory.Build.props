@@ -1,0 +1,12 @@
+﻿<Project>
+  <PropertyGroup>
+    <PackageId>Thought.vCards.Core</PackageId>
+    <Version>1.0</Version>
+    <FileVersion>1.0.0.0</FileVersion>
+    <Product>Thought.vCards.Core</Product>
+    <Authors>Reinaldo Coelho, David Pinch</Authors>
+    <Company></Company>
+    <Copyright>Copyright © 2021</Copyright>
+    <NeutralLanguage>en</NeutralLanguage>
+  </PropertyGroup>
+</Project>
