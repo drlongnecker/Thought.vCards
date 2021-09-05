@@ -1,11 +1,11 @@
-
+ï»¿
 using System;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using NUnit.Framework;
 using Thought.vCards;
 
-namespace Tests.Samples
+namespace Thought.vCards.UnitTests.Samples
 {
 
     /* ===================================================================
@@ -437,7 +437,7 @@ namespace Tests.Samples
                new StreamReader(new MemoryStream(SampleCards.UnicodeNameSample)));
 
             Assert.NotNull(card);
-            Assert.AreEqual("³ÂÀö¾ı", card.GivenName);
+            Assert.AreEqual("é™ˆä¸½å›", card.GivenName);
         }
 
         #endregion

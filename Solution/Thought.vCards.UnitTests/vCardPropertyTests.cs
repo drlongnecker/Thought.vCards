@@ -3,7 +3,7 @@ using System;
 using Thought.vCards;
 using NUnit.Framework;
 
-namespace Tests
+namespace Thought.vCards.UnitTests
 {
 
     /// <summary>

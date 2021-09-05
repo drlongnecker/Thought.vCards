@@ -5,7 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using NUnit.Framework;
 using Thought.vCards;
 
-namespace Tests.Samples
+namespace Thought.vCards.UnitTests.Samples
 {
     [TestFixture]
     public class Outlook2007
