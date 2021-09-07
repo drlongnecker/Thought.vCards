@@ -2,22 +2,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<ProjectGuid>{A53D3CEB-F7AF-41AB-AA04-4D3CF684BBAF}</ProjectGuid>
-		<TargetFramework>net472</TargetFramework>
+		<TargetFramework>netstandard20</TargetFramework>
 		<Company>Thought Project</Company>
 		<Product>vCard Class Library for .NET</Product>
 		<Copyright>Copyright © 2007-2009 David Pinch</Copyright>
-		<PackageLicenseExpression>LGPL</PackageLicenseExpression>
+		<PackageLicenseExpression>LGPL-2.1-or-later</PackageLicenseExpression>
 		<AssemblyVersion>0.4.0.1</AssemblyVersion>
 		<FileVersion>0.4.0.1</FileVersion>
 		<Version>2.0.0</Version>
 		<Authors>David Pinch, Thought Project, Jamie Howarth</Authors>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	</PropertyGroup>
-	<ItemGroup>
-		<Reference Include="System" />
-		<Reference Include="System.Data" />
-		<Reference Include="System.Drawing" />
-		<Reference Include="System.Xml" />
-	</ItemGroup>
 	<ItemGroup>
 		<Content Include="History.txt" />
 		<Content Include="KnownIssues.txt" />
@@ -25,5 +21,8 @@
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="Thought.vCards.snk" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
 	</ItemGroup>
 </Project>
