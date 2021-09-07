@@ -1,9 +1,7 @@
-
 using System;
 using NUnit.Framework;
-using Thought.vCards;
 
-namespace Tests
+namespace Thought.vCards.UnitTests
 {
 
     [TestFixture]

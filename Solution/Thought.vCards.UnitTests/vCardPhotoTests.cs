@@ -5,7 +5,7 @@ using System.IO;
 using NUnit.Framework;
 using Thought.vCards;
 
-namespace Tests
+namespace Thought.vCards.UnitTests
 {
     [TestFixture]
     public class vCardPhotoTests
@@ -19,22 +19,22 @@ namespace Tests
         ///     local network.  This will save bandwidth costs for the author.
         /// </summary>
         private const string TestPhotoUrl =
-            "http://www.thoughtproject.com/Common/Download.gif";
+            "https://en.gravatar.com/userimage/5706801/e459ccda7c6b32bb4e14da3725cf7db4.jpeg";
 
         /// <summary>
         ///     The height of the test image in pixels.
         /// </summary>
-        private const int TestPhotoHeight = 16;
+        private const int TestPhotoHeight = 80;
 
         /// <summary>
         ///     The size (in bytes) of the test image.
         /// </summary>
-        private const int TestPhotoSize = 579;
+        private const int TestPhotoSize = 2400;
 
         /// <summary>
         ///     The width of the test photo in pixels.
         /// </summary>
-        private const int TestPhotoWidth = 16;
+        private const int TestPhotoWidth = 80;
 
         // 
 
